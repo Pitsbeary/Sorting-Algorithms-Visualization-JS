@@ -1,0 +1,205 @@
+html, body
+{
+	min-width: 1200px;
+	min-height: 720px;
+	
+	width: 100%;
+	height: 100%;
+}
+
+.container
+{
+	display: grid;
+	
+	width: 100%;
+	height: 100%;
+	
+	grid-template-columns: 1fr 6fr 1fr;
+	grid-template-rows: 0.5fr 6fr 1fr;
+	
+	grid-gap: 2px; gap: 2px;
+}
+
+.top
+{
+	background: lightblue;
+	
+	grid-column: 1 / 4;
+	grid-row: 1;
+}
+
+.sidebar
+{
+	background: gray;
+	
+	grid-column: 1;
+	grid-row: 2;
+}
+
+.dropdown
+{
+	position: relative;
+}
+
+.dropdown .dropdown-content,
+.dropdown .dropdown-button
+{
+	z-index: 1;
+	position: relative;
+	
+	background: yellow;
+	
+	padding: 5px;
+}
+
+.dropdown-content
+{
+	width: auto;
+}
+
+.dropdown .dropdown-button
+{
+	cursor: pointer;
+}
+
+.dropdown-button > .dropdown-content-hidden
+{	
+	z-index: 2;
+	position: absolute;
+	
+	background: inherit;
+	cursor: default;
+	
+	display: none;
+	
+	min-width: 100%;
+	
+	left: 100%;
+	top: 0%;
+}
+
+.dropdown-button:hover > .dropdown-content-hidden
+{
+	display: block;
+}
+
+.dropdown-content-hidden:hover
+{
+	display: block;
+}
+
+.center
+{
+	grid-column: 2 / 4;
+	grid-row: 2;
+	
+	position: relative;
+	
+	background: lightblue;
+}
+
+.bottom
+{
+	background: lightblue;
+	
+	grid-column: 1 / 4;
+	grid-row: 3;
+}
+
+.array-container
+{
+	width: 97.5%;
+	height: 95%;
+	
+	margin-left: auto;
+	margin-right: auto;
+	
+	position: relative;
+	
+	background: red;
+}
+
+.array-container svg
+{
+	display: block;
+	margin: auto;
+	
+	width: 95%;
+	height: 90%;
+	
+	background: green;
+}
+
+.array-nav
+{
+	width: 100%;
+	height: 10%;
+	
+	bottom: 0;
+	
+	display: flex;
+	flex-direction: row;
+	
+	align-items: center;
+	justify-content: center;
+	
+	position: absolute;
+}
+
+.nav-button
+{
+	background: gray;
+	
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	
+	margin: 2px; 
+	
+	width: 2.5%;
+	height: auto;
+	
+	padding: 2px;
+	
+	cursor: pointer;
+}
+
+.shape
+{
+	display: inline-block;
+	
+	width: 0;
+	height: 0;
+}
+
+.arrow-left
+{
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent; 
+  
+    border-right: 10px solid blue; 
+}
+
+.arrow-right
+{
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent; 
+  
+    border-left: 10px solid blue; 
+}
+
+.rect
+{	
+    border-top: 10px solid blue; 
+	border-bottom: 10px solid blue; 
+	
+	border-left: 2px solid blue; 
+	border-right: 2px solid blue; 
+}
+
+#nav-pause .rect
+{
+	margin: 0 2px;
+}
+
+

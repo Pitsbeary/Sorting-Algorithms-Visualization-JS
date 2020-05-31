@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<title> Array Sorting Visualization </title>
+		<link rel="stylesheet" href="styles/style.css" />
+	</head>
+	
+	
+	<body>
+		<div class="container">
+			<div class="top">
+				TOP
+			</div>
+			
+			<div class="sidebar">
+				<div class="dropdown">
+					<div class="dropdown-button" id="create-button">
+						Create Array
+						
+						<div class="dropdown-content-hidden">
+						
+							<div class="dropdown-button" id="random-button">
+								Random
+								<div class="dropdown-content-hidden">
+									<div class="dropdown-content">random options</div>
+									<div class="dropdown-button create-array-button" id="create-button-random">Create</div>
+								</div>
+							</div>
+							
+							<div class="dropdown-button" id="manual-button">
+								Manual
+								<div class="dropdown-content-hidden">
+									<div class="dropdown-content"><input type="text" id="manual-array-input"></input></div>
+									<div class="dropdown-button create-array-button" id="create-button-manual" onclick="createArrayManual()">Create</div>
+								</div>
+							</div>
+							
+						</div>
+						
+					</div>
+				</div>
+				
+			</div>
+			
+			<div class="center">
+				<div class="array-container" onresize="drawArray(unsortedArray)">
+					<svg id="array-svg">
+					
+					</svg>
+					
+					<div class="array-nav">
+						<div class="nav-button" id="nav-first">
+							<div class="shape arrow-left"></div>
+							<div class="shape arrow-left"></div>
+						</div>
+						<div class="nav-button" id="nav-prev">
+								<div class="arrow-left"></div>
+						</div>
+						<div class="nav-button" id="nav-pause">
+							<div class="shape rect"></div>
+							<div class="shape rect"></div>
+						</div>
+						<div class="nav-button" id="nav-next">
+							<div class="shape arrow-right"></div>
+						</div>
+						<div class="nav-button" id="nav-last">
+							<div class="shape arrow-right"></div>
+							<div class="shape arrow-right"></div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			
+			
+			<div class="bottom">
+				BOTTOM
+			</div>
+		</div>
+		
+		<script src="scripts/array.js"></script>
+	</body>
+
+</html>
