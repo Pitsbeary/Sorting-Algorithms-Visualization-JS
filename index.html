@@ -24,15 +24,22 @@
 							<div class="dropdown-button" id="random-button">
 								Random
 								<div class="dropdown-content-hidden">
-									<div class="dropdown-content">random options</div>
-									<div class="dropdown-button create-array-button" id="create-button-random">Create</div>
+									<div class="dropdown-content">
+										<p id="slider-max-info"> Max value: </p> <input type="range" min="1" max="100" value="50" class="slider" id="array-slider-max-value" oninput="sliderInputArrayMax()">
+									</div>
+									<div class="dropdown-content">
+										<p id="slider-count-info"> Count: </p> <input type="range" min="1" max="100" value="50" class="slider" id="array-slider-element-count" oninput="sliderInputArrayCount()">
+									</div>
+									<div class="dropdown-button create-array-button" id="create-button-random" onclick="createArrayRandom()">Create</div>
 								</div>
 							</div>
 							
 							<div class="dropdown-button" id="manual-button">
 								Manual
 								<div class="dropdown-content-hidden">
-									<div class="dropdown-content"><input type="text" id="manual-array-input"></input></div>
+									<div class="dropdown-content">
+										<input type="text" id="manual-array-input"></input>
+									</div>
 									<div class="dropdown-button create-array-button" id="create-button-manual" onclick="createArrayManual()">Create</div>
 								</div>
 							</div>
@@ -51,21 +58,21 @@
 					</svg>
 					
 					<div class="array-nav">
-						<div class="nav-button" id="nav-first">
+						<div class="nav-button" id="nav-first" onclick="first()">
 							<div class="shape arrow-left"></div>
 							<div class="shape arrow-left"></div>
 						</div>
-						<div class="nav-button" id="nav-prev">
+						<div class="nav-button" id="nav-prev" onclick="prev( true )">
 								<div class="arrow-left"></div>
 						</div>
-						<div class="nav-button" id="nav-pause">
+						<div class="nav-button" id="nav-pause" onclick="pause()">
 							<div class="shape rect"></div>
 							<div class="shape rect"></div>
 						</div>
-						<div class="nav-button" id="nav-next">
+						<div class="nav-button" id="nav-next" onclick="next( true )">
 							<div class="shape arrow-right"></div>
 						</div>
-						<div class="nav-button" id="nav-last">
+						<div class="nav-button" id="nav-last" onclick="last()">
 							<div class="shape arrow-right"></div>
 							<div class="shape arrow-right"></div>
 						</div>
