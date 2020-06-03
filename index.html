@@ -11,7 +11,17 @@
 	<body>
 		<div class="container">
 			<div class="top">
-				TOP
+				<div class="array-info-container" >
+					<div class="array-info">
+						<p> Elements: </p><p id="elements-count"> 1</p>
+					</div>
+					<div class="array-info">
+						<p> Steps to sort: </p><p id="steps-count"> 1</p>
+					</div>
+					<div class="array-info">
+						<p> Current step: </p><p id="current-step"> 1</p>
+					</div>
+				</div>
 			</div>
 			
 			<div class="sidebar">
@@ -25,10 +35,10 @@
 								Random
 								<div class="dropdown-content-hidden">
 									<div class="dropdown-content">
-										<p id="slider-max-info"> Max value: </p> <input type="range" min="1" max="100" value="50" class="slider" id="array-slider-max-value" oninput="sliderInputArrayMax()">
+										<p id="slider-max-info"> Max value: </p> <input type="range" min="5" max="100" value="50" class="slider" id="array-slider-max-value" oninput="sliderInputArrayMax()">
 									</div>
 									<div class="dropdown-content">
-										<p id="slider-count-info"> Count: </p> <input type="range" min="1" max="100" value="50" class="slider" id="array-slider-element-count" oninput="sliderInputArrayCount()">
+										<p id="slider-count-info"> Count: </p> <input type="range" min="3" max="100" value="50" class="slider" id="array-slider-element-count" oninput="sliderInputArrayCount()">
 									</div>
 									<div class="dropdown-button create-array-button" id="create-button-random" onclick="createArrayRandom()">Create</div>
 								</div>
@@ -56,20 +66,25 @@
 					<svg id="array-svg">
 					
 					</svg>
+					<div class="playback-speed-slider-container" >
+						<p> Slow </p>
+						<input type="range" min="0" max="1000" value="200" class="slider" id="playback-speed-slider" oninput="sliderInputPlaybackSpeed()">
+						<p> Fast </p>
+					</div>
 					
 					<div class="array-nav">
+						
 						<div class="nav-button" id="nav-first" onclick="first()">
 							<div class="shape arrow-left"></div>
 							<div class="shape arrow-left"></div>
 						</div>
-						<div class="nav-button" id="nav-prev" onclick="prev( true )">
-								<div class="arrow-left"></div>
+						<div class="nav-button" id="nav-prev" onclick="prev()">
+							<div class="arrow-left"></div>
 						</div>
-						<div class="nav-button" id="nav-pause" onclick="pause()">
-							<div class="shape rect"></div>
-							<div class="shape rect"></div>
+						<div class="nav-button" id="nav-play" onclick="play()">
+							<div class="shape arrow-left"></div>
 						</div>
-						<div class="nav-button" id="nav-next" onclick="next( true )">
+						<div class="nav-button" id="nav-next" onclick="next()">
 							<div class="shape arrow-right"></div>
 						</div>
 						<div class="nav-button" id="nav-last" onclick="last()">
@@ -88,6 +103,11 @@
 		</div>
 		
 		<script src="scripts/array.js"></script>
+		
+		<script>
+			window.onload = init;
+		</script>
+		
 	</body>
 
 </html>

@@ -1,12 +1,36 @@
 "use strict"
 
 let svg = document.getElementById('array-svg');
-let unsortedArray = [], sortedArray = [];
+let currentArray = [], unsortedArray = [], sortedArray = [];
 
 let sortingSteps = [];
 let currentStepIndex = 0;
 
 let rectSpacing = 2;
+
+let isPlaying = false;
+let playbackIntervalId = null;
+let playbackRate = 500;
+
+function init()
+{
+	let slider = document.getElementById( "array-slider-max-value" );
+	displaySliderValue( "slider-max-info", "Max value:", slider.value );
+	
+	slider = document.getElementById( "array-slider-element-count" );
+	displaySliderValue( "slider-count-info", "Count: ", slider.value );
+	
+	playbackRate = 1000 - document.getElementById( "playback-speed-slider" ).value;
+	
+	updateArrayInfo();
+}
+
+function updateArrayInfo()
+{
+	document.getElementById("elements-count").innerHTML = unsortedArray.length;
+	document.getElementById("steps-count").innerHTML = sortingSteps.length;
+	document.getElementById("current-step").innerHTML = currentStepIndex;
+}
 
 function createArrayManual()
 {
@@ -18,7 +42,8 @@ function createArrayManual()
 	sortArray( sortedArray, SortingAlgorithms.BUBBLE );
 	currentStepIndex = 0;
 	
-	drawArray( unsortedArray, null );
+	currentArray = [...unsortedArray];
+	drawArray( currentArray, null );
 }
 
 function createArrayRandom()
@@ -38,11 +63,18 @@ function createArrayRandom()
 	sortArray( sortedArray, SortingAlgorithms.BUBBLE );
 	currentStepIndex = 0;
 	
-	drawArray( unsortedArray, null );
+	currentArray = [...unsortedArray];
+	drawArray( currentArray, null );
 }
 
 function randomInt( min, max ) {
 	return min + Math.floor( ( max - min ) * Math.random() );
+}
+
+function initSorting()
+{
+	sortingSteps = [];
+	currentStepIndex = 0;
 }
 
 function drawArray( array, step )
@@ -69,11 +101,21 @@ function drawArray( array, step )
 		
 		if( step === null || !( elementIndex == step.indexA || elementIndex == step.indexB ) )
 		{
-			rect.setAttributeNS(null, 'fill', "#FFFFFF" );
+			rect.setAttributeNS(null, 'class', 'array-element default' );
 		}
 		else if( elementIndex == step.indexA || elementIndex == step.indexB )
 		{
-			rect.setAttributeNS(null, 'fill', "#0000FF" );
+			switch( step.stepType )
+			{
+				case SortingSteps.COMPARE:
+					rect.setAttributeNS(null, 'class', 'array-element compared' );
+				break;
+				
+				case SortingSteps.SWAP:
+					rect.setAttributeNS(null, 'class', 'array-element swapped' );
+				break;
+			}
+			
 		}
 
 		
@@ -81,6 +123,8 @@ function drawArray( array, step )
 		
 		rectPosX += rectWidth + rectSpacing;
 	}
+	
+	updateArrayInfo();
 	
 }
 
@@ -92,7 +136,7 @@ function createRect( rectPosX, rectPosY, rectWidth, rectHeight )
     resultRect.setAttributeNS(null, 'y', rectPosY);
 	resultRect.setAttributeNS(null, 'width', rectWidth + "px" );
     resultRect.setAttributeNS(null, 'height', rectHeight + "px" );
-	
+	resultRect.setAttributeNS(null, 'class', "array-element" );
 	
 	return resultRect;
 }
@@ -112,65 +156,143 @@ function sliderInputArrayCount()
 	displaySliderValue( "slider-count-info", "Count: ", event.currentTarget.value );
 }
 
+function sliderInputPlaybackSpeed()
+{
+	playbackRate = 1000 - event.currentTarget.value;
+	
+	if( isPlaying )
+	{
+		clearInterval( playbackIntervalId );
+		playbackIntervalId = setInterval( playback, playbackRate );
+	}
+}
+
 function displaySliderValue( pid, desc, value )
 {
 	document.getElementById( pid ).innerHTML = desc + " " + value;
 }
 
-function prev( needsRender )
+function prev()
 {	
-	if( needsRender )
+	if( currentStepIndex < 0 )
 	{
-		drawArray( unsortedArray, sortingSteps[ currentStepIndex ] );
+		return;
 	}
 	
-	commitStep( unsortedArray, sortingSteps[ currentStepIndex ] );
+	if( currentStepIndex >= sortingSteps.length )
+	{
+		currentStepIndex = sortingSteps.length - 1;
+	}
 	
-	--currentStepIndex;
+	drawArray( currentArray, sortingSteps[ currentStepIndex ] );
+	goPrev();
 }
 
-function next( needsRender )
-{	
-	if( needsRender )
+function goPrev()
+{
+	if( currentStepIndex >= 0 )
 	{
-		drawArray( unsortedArray, sortingSteps[ currentStepIndex ] );
+		commitStep( currentArray, sortingSteps[ currentStepIndex ] );
+		--currentStepIndex;
+	}
+}
+
+function next()
+{	
+	if( currentStepIndex >= sortingSteps.length )
+	{
+		return;
 	}
 	
-	commitStep( unsortedArray, sortingSteps[ currentStepIndex ] );
+	if( currentStepIndex < 0 )
+	{
+		currentStepIndex = 0;
+	}
 	
-	++currentStepIndex;
+	drawArray( currentArray, sortingSteps[ currentStepIndex ] );
+	goNext();
+	
+}
+
+function goNext()
+{
+	if( currentStepIndex < sortingSteps.length )
+	{
+		commitStep( currentArray, sortingSteps[ currentStepIndex ] );
+		++currentStepIndex;
+	}
 }
 
 function first()
 {
-	for( let stepIndex = currentStepIndex; stepIndex >= 0; stepIndex-- )
-	{
-		prev( false );
-	}
-	
+	currentArray = [...unsortedArray];
 	currentStepIndex = 0;
+	
+	drawArray( currentArray, sortingSteps[ currentStepIndex ] );
 }
 
 function last()
 {
-	for( let stepIndex = currentStepIndex; stepIndex < sortingSteps.length; stepIndex++ )
-	{
-		next( false );
-	}
-	
+	currentArray = [...sortedArray];
 	currentStepIndex = sortingSteps.length - 1;
+	
+	drawArray( currentArray, sortingSteps[ currentStepIndex ] );
 }
 
 function play()
 {
+	if( currentStepIndex < 0 )
+	{
+		currentStepIndex = 0;
+	}
 	
+	if( currentStepIndex >= sortingSteps.length )
+	{
+		currentStepIndex = sortingSteps.length - 1;
+	}
+		
+	if( !isPlaying )
+	{
+		startPlayback();
+	}
+	else
+	{		
+		stopPlayback();
+	}
 }
 
-function pause()
+function startPlayback()
 {
+	playbackIntervalId = setInterval( playback, playbackRate );
 	
+	let playButton = document.querySelector("#nav-play .shape.arrow-left");
+	playButton.className = "shape rect";
+		
+	isPlaying = true;
 }
 
+function stopPlayback()
+{
+	clearInterval( playbackIntervalId );
+	
+	let playButton = document.querySelector("#nav-play .shape.rect");
+	playButton.className = "shape arrow-left";
+	
+	isPlaying = false;
+}
+
+function playback()
+{
+	drawArray( currentArray, sortingSteps[ currentStepIndex ] );
+	
+	if( currentStepIndex >= sortingSteps.length - 1 )
+	{
+		stopPlayback();
+		return;
+	}
+	
+	goNext();
+}
 
 const SortingAlgorithms = {
     BUBBLE: "Bubble Sort",
@@ -179,12 +301,14 @@ const SortingAlgorithms = {
 };
 
 const SortingSteps = {
-    COMPARE: "Compare",
-    SWAP: "Swap"
+    COMPARE: 	"Compare",
+    SWAP: 		"Swap"
 };
 
 function sortArray( array, algorithm )
 {
+	initSorting();
+	
 	switch( algorithm )
 	{
 		case SortingAlgorithms.BUBBLE:
@@ -218,7 +342,6 @@ function sortBubble( array )
 			}
 		}
 	}
-	
 }
 
 function compareElements( array, indexA, indexB, shouldRegister = true )
@@ -256,8 +379,20 @@ function commitStep( array, step )
 	}
 }
 
-function playStep( array, step )
+function isSorted( array )
 {
+	if( array.length != sortedArray.length )
+	{
+		return false;
+	}
 	
+	for( let elementIndex = 0; elementIndex < array.length; ++elementIndex )
+	{
+		if( array[ elementIndex ] != sortedArray[ elementIndex ] )
+		{
+			return false;
+		}
+	}
+	
+	return true;
 }
-
