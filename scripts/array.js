@@ -509,7 +509,6 @@ function sortSelect( array )
 		{
 			swapElements( array, sortIndex, minIndex );
 		}
-		
 	}
 }
 
@@ -519,7 +518,7 @@ function sortInsert( array )
 	{
 		let elementIndex = sortIndex + 1;
 		
-		while( compareElementsInsert( array, elementIndex - 1, elementIndex ) )
+		while( compareElements( array, elementIndex - 1, elementIndex ) )
 		{
 			swapElements( array, elementIndex - 1, elementIndex );
 			
@@ -541,16 +540,6 @@ function compareElements( array, indexA, indexB, shouldRegister = true )
 	}
 	
 	return array[ indexA ] > array[ indexB ];
-}
-
-function compareElementsInsert( array, indexA, indexB, shouldRegister = true )
-{
-	if( shouldRegister )
-	{
-		registerStep( SortingSteps.COMPARE, indexA, indexB );
-	}
-	
-	return array[ indexA ] >= array[ indexB ];
 }
 
 function swapElements( array, indexA, indexB, shouldRegister = true )
