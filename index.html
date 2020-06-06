@@ -1,5 +1,19 @@
 <!DOCTYPE html>
 
+<!-- 
+	TO DO: 
+	
+	provide wikipedia links and info about the algorithms in the footer or header 
+
+	array sorting load screen
+	
+	maybe sort an array only when user pushes the button ? consider that
+	
+	clean the code for sure
+	
+	life is too hard goddamnit
+-->
+
 <html>
 
 	<head>
@@ -7,19 +21,31 @@
 		<link rel="stylesheet" href="styles/style.css" />
 	</head>
 	
-	
 	<body>
 		<div class="container">
 			<div class="top">
 				<div class="array-info-container" >
 					<div class="array-info">
-						<p> Elements: </p><p id="elements-count"> 1</p>
+						<p> Elements: </p><p id="elements-count"> </p>
+						<div class="array-info-additional">
+							<div class="array-info"><p> Max: </p><p id="array-max"> </p></div>
+							<div class="array-info"><p> Min: </p><p id="array-min"> </p></div>
+							<div class="array-info"><p> Avg: </p><p id="array-avg"> </p></div>
+						</div>
 					</div>
 					<div class="array-info">
-						<p> Steps to sort: </p><p id="steps-count"> 1</p>
+						<p> Steps to sort: </p><p id="steps-count"> </p>
+						<div class="array-info-additional">
+							<div class="array-info"><p> Swaps: </p><p id="swaps-count"> </p></div>
+							<div class="array-info"><p> Comparisions: </p><p id="comp-count"> </p></div>
+						</div>
 					</div>
 					<div class="array-info">
-						<p> Current step: </p><p id="current-step"> 1</p>
+						<p> Current step: </p><p id="current-step"> </p>
+						<div class="array-info-additional">
+							<div class="array-info"><p> Step type: </p><p id="current-step-type"></p> </div>
+							<div class="array-info"><p> Step value: </p><p id="current-step-indexes"></p> </div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -32,20 +58,20 @@
 						<div class="dropdown-content-hidden">
 						
 							<div class="dropdown-button" id="random-button">
-								Random
+								<p> Random </p>
 								<div class="dropdown-content-hidden">
 									<div class="dropdown-content">
 										<p id="slider-max-info"> Max value: </p> <input type="range" min="5" max="100" value="50" class="slider" id="array-slider-max-value" oninput="sliderInputArrayMax()">
 									</div>
 									<div class="dropdown-content">
-										<p id="slider-count-info"> Count: </p> <input type="range" min="3" max="100" value="50" class="slider" id="array-slider-element-count" oninput="sliderInputArrayCount()">
+										<p id="slider-count-info"> Count: </p> <input type="range" min="3" max="200" value="50" class="slider" id="array-slider-element-count" oninput="sliderInputArrayCount()">
 									</div>
 									<div class="dropdown-button create-array-button" id="create-button-random" onclick="createArrayRandom()">Create</div>
 								</div>
 							</div>
 							
 							<div class="dropdown-button" id="manual-button">
-								Manual
+								<p> Manual </p>
 								<div class="dropdown-content-hidden">
 									<div class="dropdown-content">
 										<input type="text" id="manual-array-input"></input>
@@ -57,12 +83,33 @@
 						</div>
 						
 					</div>
+					
+					<div class="dropdown-button" id="create-button">
+						<p id="algorithm-pick"> Choose algorithm </p>
+						<div class="dropdown-content-hidden">
+						
+							<div class="dropdown-button" id="pick-bubble" onclick="pickAlgorithm( SortingAlgorithms.BUBBLE )">
+								Bubble Sort
+							</div>
+							
+							<div class="dropdown-button" id="pick-select"  onclick="pickAlgorithm( SortingAlgorithms.SELECT )">
+								Select Sort
+							</div>
+							
+							<div class="dropdown-button" id="pick-insert"  onclick="pickAlgorithm( SortingAlgorithms.INSERT )">
+								Insert Sort
+							</div>
+							
+						</div>
+						
+					</div>
 				</div>
 				
 			</div>
 			
 			<div class="center">
 				<div class="array-container" onresize="drawArray(unsortedArray)">
+					<div id="array-tooltip"> </div>
 					<svg id="array-svg">
 					
 					</svg>
@@ -91,6 +138,7 @@
 							<div class="shape arrow-right"></div>
 							<div class="shape arrow-right"></div>
 						</div>
+						
 					</div>
 					
 				</div>
@@ -98,7 +146,7 @@
 			
 			
 			<div class="bottom">
-				BOTTOM
+				
 			</div>
 		</div>
 		

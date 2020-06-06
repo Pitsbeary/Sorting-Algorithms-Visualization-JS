@@ -12,6 +12,10 @@ let isPlaying = false;
 let playbackIntervalId = null;
 let playbackRate = 500;
 
+let arrayAvg = 0;
+
+let algorithm = null;
+
 function init()
 {
 	let slider = document.getElementById( "array-slider-max-value" );
@@ -22,32 +26,94 @@ function init()
 	
 	playbackRate = 1000 - document.getElementById( "playback-speed-slider" ).value;
 	
-	updateArrayInfo();
+	updateStaticArrayInfo();
+	updateDynamicArrayInfo();
 }
 
-function updateArrayInfo()
+function updateStaticArrayInfo()
 {
 	document.getElementById("elements-count").innerHTML = unsortedArray.length;
 	document.getElementById("steps-count").innerHTML = sortingSteps.length;
-	document.getElementById("current-step").innerHTML = currentStepIndex;
+	
+	document.getElementById("array-max").innerHTML = getMax( unsortedArray );
+	document.getElementById("array-min").innerHTML = getMin( unsortedArray );
+	document.getElementById("array-avg").innerHTML = Math.round( avg( unsortedArray ) );
+	
+	document.getElementById("swaps-count").innerHTML = countSteps( sortingSteps, SortingSteps.SWAP );
+	document.getElementById("comp-count").innerHTML = countSteps( sortingSteps, SortingSteps.COMPARE );
+}
+
+function getMax( array )
+{
+	let max = array[ 0 ];
+	
+	for( let value of array )
+	{
+		if( value > max )
+		{
+			max = value;
+		}
+	}
+	
+	return max;
+}
+
+function getMin( array )
+{
+	let min = array[ 0 ];
+	
+	for( let value of array )
+	{
+		if( value < min )
+		{
+			min = value;
+		}
+	}
+	
+	return min;
+}
+
+function updateDynamicArrayInfo()
+{
+	if( sortingSteps.length == 0 )
+	{
+		document.getElementById("current-step").innerHTML = 0;
+		return;
+	}
+	
+	document.getElementById("current-step").innerHTML = currentStepIndex + 1;
+	document.getElementById("current-step-type").innerHTML = sortingSteps[ currentStepIndex ].stepType;
+	document.getElementById("current-step-indexes").innerHTML = sortingSteps[ currentStepIndex ].indexA + "[" + currentArray[ sortingSteps[ currentStepIndex ].indexA ] + "] with " + sortingSteps[ currentStepIndex ].indexB  + "[" + currentArray[ sortingSteps[ currentStepIndex ].indexB ] + "]";
 }
 
 function createArrayManual()
 {
+	if( isPlaying )
+	{
+		stopPlayback();
+	}
+	
 	let arrayText = document.getElementById('manual-array-input').value;
 	
-	unsortedArray = arrayText.split(',');
+	unsortedArray = arrayText.split(',').map( Number );
 	
-	sortedArray = [...unsortedArray];
-	sortArray( sortedArray, SortingAlgorithms.BUBBLE );
-	currentStepIndex = 0;
 	
-	currentArray = [...unsortedArray];
-	drawArray( currentArray, null );
+	if( algorithm != null )
+	{
+		sortArray( algorithm );
+	}
+	
+	updateStaticArrayInfo();
+	drawArray( unsortedArray, null );
 }
 
 function createArrayRandom()
 {
+	if( isPlaying )
+	{
+		stopPlayback();
+	}
+	
 	let arrayElementCount = document.getElementById( "array-slider-element-count" ).value;
 	let arrayMaxValue = document.getElementById( "array-slider-max-value" ).value;
 	let arrayMinValue = 1;
@@ -59,22 +125,44 @@ function createArrayRandom()
 		unsortedArray.push( randomInt( arrayMinValue, arrayMaxValue ) );
 	}
 	
-	sortedArray = [...unsortedArray];
-	sortArray( sortedArray, SortingAlgorithms.BUBBLE );
-	currentStepIndex = 0;
+	if( algorithm != null )
+	{
+		sortArray( algorithm );
+	}
 	
-	currentArray = [...unsortedArray];
-	drawArray( currentArray, null );
+	updateStaticArrayInfo();
+	drawArray( unsortedArray, null );
+}
+
+function avg( array )
+{
+	let sum = 0;
+	
+	for( let value of array )
+	{
+		sum += value;
+	}
+
+	return sum / array.length;
+}
+
+function countSteps( stepsArray, stepType )
+{
+	let sum = 0;
+	
+	for( let step of stepsArray )
+	{
+		if( step.stepType == stepType )
+		{
+			++sum;
+		}
+	}
+
+	return sum;
 }
 
 function randomInt( min, max ) {
 	return min + Math.floor( ( max - min ) * Math.random() );
-}
-
-function initSorting()
-{
-	sortingSteps = [];
-	currentStepIndex = 0;
 }
 
 function drawArray( array, step )
@@ -115,16 +203,18 @@ function drawArray( array, step )
 					rect.setAttributeNS(null, 'class', 'array-element swapped' );
 				break;
 			}
-			
 		}
-
+		
+		rect.setAttributeNS(null, 'value', array[ elementIndex ] );
+		rect.setAttributeNS(null, 'onmousemove', "showTooltip(evt)" );
+		rect.setAttributeNS(null, 'onmouseout', "hideTooltip(evt)" );
 		
 		svg.appendChild( rect );
 		
 		rectPosX += rectWidth + rectSpacing;
 	}
 	
-	updateArrayInfo();
+	updateDynamicArrayInfo();
 	
 }
 
@@ -138,7 +228,26 @@ function createRect( rectPosX, rectPosY, rectWidth, rectHeight )
     resultRect.setAttributeNS(null, 'height', rectHeight + "px" );
 	resultRect.setAttributeNS(null, 'class', "array-element" );
 	
+
+	
 	return resultRect;
+}
+
+function showTooltip(evt, text) 
+{
+	let tooltip = document.getElementById("array-tooltip");
+	tooltip.innerHTML = event.currentTarget.getAttributeNS( null, "value" );
+	
+	tooltip.style.display = "block";
+
+	tooltip.style.left = event.pageX + 15 - document.documentElement.scrollLeft + 'px';
+	tooltip.style.top = event.pageY + 15 - document.documentElement.scrollTop + 'px';
+}
+
+function hideTooltip() 
+{
+  var tooltip = document.getElementById("array-tooltip");
+  tooltip.style.display = "none";
 }
 
 function clearDrawing()
@@ -167,6 +276,25 @@ function sliderInputPlaybackSpeed()
 	}
 }
 
+function pickAlgorithm( alg )
+{
+	algorithm = alg;
+	document.getElementById( "algorithm-pick" ).innerHTML = algorithm;
+	
+	if( unsortedArray.length > 0 )
+	{
+		if( isPlaying )
+		{
+			stopPlayback();
+		}
+
+		sortArray( algorithm );		
+		drawArray( unsortedArray, null );
+		
+		updateStaticArrayInfo();
+	}
+}
+
 function displaySliderValue( pid, desc, value )
 {
 	document.getElementById( pid ).innerHTML = desc + " " + value;
@@ -174,14 +302,14 @@ function displaySliderValue( pid, desc, value )
 
 function prev()
 {	
-	if( currentStepIndex < 0 )
+	if( currentStepIndex <= 0 )
 	{
 		return;
 	}
 	
 	if( currentStepIndex >= sortingSteps.length )
 	{
-		currentStepIndex = sortingSteps.length - 1;
+		last();
 	}
 	
 	drawArray( currentArray, sortingSteps[ currentStepIndex ] );
@@ -190,37 +318,40 @@ function prev()
 
 function goPrev()
 {
-	if( currentStepIndex >= 0 )
+	if( currentStepIndex == 0 )
 	{
-		commitStep( currentArray, sortingSteps[ currentStepIndex ] );
-		--currentStepIndex;
+		return;
 	}
+	
+	--currentStepIndex;
+	commitStep( currentArray, sortingSteps[ currentStepIndex ] );
 }
 
 function next()
 {	
-	if( currentStepIndex >= sortingSteps.length )
+	if( currentStepIndex >= sortingSteps.length - 1 )
 	{
 		return;
 	}
 	
 	if( currentStepIndex < 0 )
 	{
-		currentStepIndex = 0;
+		first();
 	}
 	
 	drawArray( currentArray, sortingSteps[ currentStepIndex ] );
 	goNext();
-	
 }
 
 function goNext()
 {
-	if( currentStepIndex < sortingSteps.length )
+	if( currentStepIndex == sortingSteps.length - 1 )
 	{
-		commitStep( currentArray, sortingSteps[ currentStepIndex ] );
-		++currentStepIndex;
+		return;
 	}
+	
+	++currentStepIndex;
+	commitStep( currentArray, sortingSteps[ currentStepIndex ] );
 }
 
 function first()
@@ -241,6 +372,11 @@ function last()
 
 function play()
 {
+	if( sortingSteps.length == 0 )
+	{
+		return;
+	}
+	
 	if( currentStepIndex < 0 )
 	{
 		currentStepIndex = 0;
@@ -285,7 +421,7 @@ function playback()
 {
 	drawArray( currentArray, sortingSteps[ currentStepIndex ] );
 	
-	if( currentStepIndex >= sortingSteps.length - 1 )
+	if( currentStepIndex == sortingSteps.length - 1 )
 	{
 		stopPlayback();
 		return;
@@ -297,7 +433,9 @@ function playback()
 const SortingAlgorithms = {
     BUBBLE: "Bubble Sort",
     SELECT: "Select Sort",
-    INSERT: "Insert Sort"
+    INSERT: "Insert Sort",
+	MERGRE: "Merge Sort",
+	QUICK: "Quick Sort"
 };
 
 const SortingSteps = {
@@ -305,24 +443,33 @@ const SortingSteps = {
     SWAP: 		"Swap"
 };
 
-function sortArray( array, algorithm )
-{
-	initSorting();
+function sortArray( algorithm )
+{	
+	sortInit();
 	
 	switch( algorithm )
 	{
 		case SortingAlgorithms.BUBBLE:
-			sortBubble( array );
+			sortBubble( sortedArray );
 			break;
 			
 		case SortingAlgorithms.SELECT:
-			sortSelect( array );
+			sortSelect( sortedArray );
 			break;
 			
 		case SortingAlgorithms.INSERT:
-			sortInsert( array );
+			sortInsert( sortedArray );
 			break;
 	}
+}
+
+function sortInit()
+{
+	sortedArray = [...unsortedArray];
+	currentArray = [...unsortedArray];
+	
+	currentStepIndex = 0;
+	sortingSteps = [];
 }
 
 function sortBubble( array )
@@ -344,6 +491,48 @@ function sortBubble( array )
 	}
 }
 
+function sortSelect( array )
+{
+	for( let sortIndex = 0; sortIndex < array.length - 1; ++sortIndex )
+	{
+		let minIndex = sortIndex;
+		
+		for( let elementIndex = sortIndex + 1; elementIndex < array.length; ++elementIndex )
+		{
+			if( compareElements( array, minIndex, elementIndex ) )
+			{
+				minIndex = elementIndex;
+			}
+		}
+		
+		if( minIndex != sortIndex )
+		{
+			swapElements( array, sortIndex, minIndex );
+		}
+		
+	}
+}
+
+function sortInsert( array )
+{
+	for( let sortIndex = 0; sortIndex < array.length - 1; ++sortIndex )
+	{
+		let elementIndex = sortIndex + 1;
+		
+		while( compareElementsInsert( array, elementIndex - 1, elementIndex ) )
+		{
+			swapElements( array, elementIndex - 1, elementIndex );
+			
+			elementIndex--;
+			
+			if( elementIndex == 0 )
+			{
+				break;
+			}
+		}
+	}
+}
+
 function compareElements( array, indexA, indexB, shouldRegister = true )
 {
 	if( shouldRegister )
@@ -352,6 +541,16 @@ function compareElements( array, indexA, indexB, shouldRegister = true )
 	}
 	
 	return array[ indexA ] > array[ indexB ];
+}
+
+function compareElementsInsert( array, indexA, indexB, shouldRegister = true )
+{
+	if( shouldRegister )
+	{
+		registerStep( SortingSteps.COMPARE, indexA, indexB );
+	}
+	
+	return array[ indexA ] >= array[ indexB ];
 }
 
 function swapElements( array, indexA, indexB, shouldRegister = true )
