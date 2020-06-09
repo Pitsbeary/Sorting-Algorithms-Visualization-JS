@@ -580,6 +580,11 @@ function merge( array, start, middle, end )
 	let index1 = start;
 	let index2 = middle + 1;
 	
+	if( !compareElements( array, middle, index2 ) )
+	{
+		return;
+	}
+	
 	while( index1 <= middle && index2 <= end )
 	{
 		if( !compareElements( array, index1, index2 ) )
