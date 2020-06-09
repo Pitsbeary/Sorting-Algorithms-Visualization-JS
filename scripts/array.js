@@ -227,9 +227,7 @@ function createRect( rectPosX, rectPosY, rectWidth, rectHeight )
 	resultRect.setAttributeNS(null, 'width', rectWidth + "px" );
     resultRect.setAttributeNS(null, 'height', rectHeight + "px" );
 	resultRect.setAttributeNS(null, 'class', "array-element" );
-	
 
-	
 	return resultRect;
 }
 
