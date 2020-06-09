@@ -124,15 +124,16 @@ function createArrayRandom()
 		stopPlayback();
 	}
 	
-	let arrayElementCount = document.getElementById( "array-slider-element-count" ).value;
-	let arrayMaxValue = document.getElementById( "array-slider-max-value" ).value;
+	let arrayElementCount =  Number( document.getElementById( "array-slider-element-count" ).value );
+	let arrayMaxValue = Number( document.getElementById( "array-slider-max-value" ).value );
+
 	let arrayMinValue = 1;
 	
 	unsortedArray = [];
 	
 	for( let elementIndex = 0; elementIndex < arrayElementCount; ++elementIndex )
 	{
-		unsortedArray.push( randomInt( arrayMinValue, arrayMaxValue ) );
+		unsortedArray.push( randomInt( arrayMinValue, arrayMaxValue + 1 ) );
 	}
 	
 	currentArray = [...unsortedArray];
