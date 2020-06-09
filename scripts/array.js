@@ -455,7 +455,7 @@ const SortingAlgorithms = {
     BUBBLE: "Bubble Sort",
     SELECT: "Select Sort",
     INSERT: "Insert Sort",
-	MERGRE: "Merge Sort",
+	MERGE: "Merge Sort",
 	QUICK: "Quick Sort"
 };
 
@@ -480,6 +480,14 @@ function sortArray( algorithm )
 			
 		case SortingAlgorithms.INSERT:
 			sortInsert( sortedArray );
+			break;
+			
+		case SortingAlgorithms.MERGE:
+			sortMerge( sortedArray, 0, sortedArray.length - 1 );
+			break;
+			
+		case SortingAlgorithms.QUICK:
+		
 			break;
 	}
 }
@@ -549,6 +557,48 @@ function sortInsert( array )
 			{
 				break;
 			}
+		}
+	}
+}
+
+function sortMerge( array, left, right )
+{
+	
+	if ( left < right )
+	{ 
+        let middle = left + Math.floor( ( right - left ) / 2 ); 
+
+        sortMerge( array, left, middle ); 
+        sortMerge( array, middle + 1, right ); 
+  
+        merge( array, left, middle, right ); 
+    } 
+}
+
+function merge( array, start, middle, end ) 
+{
+	let index1 = start;
+	let index2 = middle + 1;
+	
+	while( index1 <= middle && index2 <= end )
+	{
+		if( !compareElements( array, index1, index2 ) )
+		{
+			++index1;	
+		}
+		else
+		{
+			let index = index2;
+			
+			while( index != index1 )
+			{
+				swapElements( array, index, index - 1 );
+				index--;
+			}
+					
+            index1++;
+			middle++;
+			index2++;
 		}
 	}
 }
