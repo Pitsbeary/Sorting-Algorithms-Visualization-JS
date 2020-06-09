@@ -16,6 +16,16 @@ let arrayAvg = 0;
 
 let algorithm = null;
 
+window.onresize = onWindowResize;
+
+function onWindowResize()
+{
+	if( currentArray.length > 0 )
+	{
+		drawArray( currentArray, sortingSteps.length > 0 ? sortingSteps[ currentStepIndex ] : null );
+	}
+}
+
 function init()
 {
 	let slider = document.getElementById( "array-slider-max-value" );
@@ -96,7 +106,7 @@ function createArrayManual()
 	let arrayText = document.getElementById('manual-array-input').value;
 	
 	unsortedArray = arrayText.split(',').map( Number );
-	
+	currentArray = [...unsortedArray];
 	
 	if( algorithm != null )
 	{
@@ -124,6 +134,8 @@ function createArrayRandom()
 	{
 		unsortedArray.push( randomInt( arrayMinValue, arrayMaxValue ) );
 	}
+	
+	currentArray = [...unsortedArray];
 	
 	if( algorithm != null )
 	{
@@ -354,6 +366,11 @@ function goNext()
 
 function first()
 {
+	if( unsortedArray.length == 0 )
+	{
+		return;
+	}
+	
 	currentArray = [...unsortedArray];
 	currentStepIndex = 0;
 	
@@ -362,6 +379,11 @@ function first()
 
 function last()
 {
+	if( sortedArray.length == 0 )
+	{
+		return;
+	}
+	
 	currentArray = [...sortedArray];
 	currentStepIndex = sortingSteps.length - 1;
 	

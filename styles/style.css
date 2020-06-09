@@ -221,7 +221,6 @@ html, body
 #slider-max-info, #slider-count-info
 {
 	width: 100%;
-	
 }
 
 #playback-speed-slider
@@ -331,25 +330,13 @@ html, body
 	
 	width: 95%;
 	height: 90%;	
+	
+	background: black;
 }
 
 .array-container svg rect
 {
 	cursor: pointer;
-}
-
-#array-tooltip
-{
-	display: none;
-	
-	background: white;
-	position: fixed;
-	
-	border: 1px solid black;
-	border-radius: 5px;
-	padding: 2px;
-	
-	z-index: 5;
 }
 
 .array-element.default
@@ -365,6 +352,22 @@ html, body
 .array-element.compared
 {
 	fill: var(--array-element-color-compare);
+}
+
+#array-tooltip
+{
+	display: none;
+	
+	background: white;
+	position: fixed;
+	
+	border: 1px solid black;
+	border-radius: 5px;
+	padding: 2px;
+	
+	text-align: center;
+	
+	z-index: 5;
 }
 
 .array-nav
