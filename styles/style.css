@@ -107,6 +107,7 @@ html, body
 .array-info p
 {
 	padding: 5px;
+	white-space: nowrap;
 }
 
 .sidebar
@@ -117,33 +118,115 @@ html, body
 	background: var(--misc-color-2);
 }
 
+.slider-container
+{
+	display: flex;
+	flex-direction: row;
+	
+	align-items: center;
+	justify-content: flex-start;
+}
+
+#playback-speed-slider-container
+{
+	z-index: 3;
+	
+	height: 10%;
+	
+	bottom: 0;
+	left: 5%;
+	
+	position: absolute;
+}
+
 .slider
 {
 	opacity: 0.8;
 
 	height: 5px;
 	margin: auto 10px !important;
-		
+
 	cursor: pointer;
+	
+	-webkit-appearance: none;
+	appearance: none;
 	
 	-webkit-transition: .2s;
 	transition: opacity .2s;
+}
+
+.slider:focus
+{
+	outline: none; 
 }
 
 .slider:hover
 {
 	opacity: 1;
 }
+.slider::-ms-track 
+{
+	width: 100%;
+	cursor: pointer;
 
-.slider::-moz-range-thumb,
-.slider::-webkit-slider-thumb
-{	
+	background: transparent; 
+	border-color: transparent;
+	color: transparent;
+}
+
+.slider::-moz-range-thumb
+{
+	
 	background: var(--misc-color-1);
+	
+	appearance: none;
+	
+	box-shadow: 2px 2px 2px black;
 	
 	width: 15px;  
 	height: 15px;
 	
-	 border-radius: 0; 
+	border-radius: 0; 
+}
+
+
+.slider::-webkit-slider-thumb
+{	
+	background: var(--misc-color-1);
+	
+	-webkit-appearance: none;
+	
+	box-shadow: 2px 2px 2px black;
+	
+	width: 15px;  
+	height: 15px;
+	
+	border-radius: 0; 
+}
+
+.slider::-ms-thumb
+{	
+	background: var(--misc-color-1);
+	
+	-webkit-appearance: none;
+	
+	box-shadow: 2px 2px 2px black;
+	
+	width: 15px;  
+	height: 15px;
+	
+	border-radius: 0; 
+}
+
+#slider-max-info, #slider-count-info
+{
+	width: 100%;
+	
+}
+
+#playback-speed-slider
+{
+	margin: 0 5px;
 }
 
 .dropdown
@@ -154,6 +237,7 @@ html, body
 .dropdown p
 {
 	display: inline;
+	white-space: nowrap;
 }
 
 .dropdown .dropdown-content,
@@ -169,7 +253,10 @@ html, body
 
 .dropdown-content
 {
-	width: auto;
+	display: flex;
+	flex-direction: row;
+	
+	background: inherit;
 }
 
 .dropdown .dropdown-button
@@ -296,26 +383,6 @@ html, body
 	position: absolute;
 	
 	background: var(--misc-color-3)
-}
-
-.playback-speed-slider-container
-{
-	display: flex;
-	flex-direction: row;
-	
-	z-index: 3;
-	
-	height: 10%;
-	
-	bottom: 0;
-	left: 5%;
-	
-	position: absolute;
-}
-
-#playback-speed-slider
-{
-	margin: 0 5px;
 }
 
 .nav-button
