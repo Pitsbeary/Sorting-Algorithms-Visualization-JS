@@ -492,6 +492,7 @@ function sortArray( algorithm )
 			break;
 	}
 	
+	drawArray( unsortedArray, null );
 	setTimeout( hideLoadScreen, 1000 );
 	setTimeout( updateStaticArrayInfo, 1000 );
 	setTimeout( play, 1250 );
@@ -506,7 +507,6 @@ function sortInit()
 	currentStepIndex = 0;
 	sortingSteps = [];
 }
-
 
 function showLoadScreen()
 {
