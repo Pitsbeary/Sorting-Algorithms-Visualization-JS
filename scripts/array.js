@@ -180,6 +180,7 @@ function randomInt( min, max ) {
 
 function drawArray( array, step )
 {
+	hideTooltip();
 	clearDrawing();
 	
 	let availableWidth = svg.clientWidth;
@@ -220,15 +221,16 @@ function drawArray( array, step )
 		
 		rect.setAttributeNS(null, 'value', array[ elementIndex ] );
 		rect.setAttributeNS(null, 'onmousemove', "showTooltip(evt)" );
-		rect.setAttributeNS(null, 'onmouseout', "hideTooltip(evt)" );
+		rect.setAttributeNS(null, 'onmouseout', "hideTooltip()" );
 		
 		svg.appendChild( rect );
 		
 		rectPosX += rectWidth + rectSpacing;
 	}
 	
-	updateDynamicArrayInfo();
 	
+	
+	updateDynamicArrayInfo();
 }
 
 function createRect( rectPosX, rectPosY, rectWidth, rectHeight )
@@ -299,10 +301,7 @@ function pickAlgorithm( alg )
 			stopPlayback();
 		}
 
-		sortArray( algorithm );		
-		drawArray( unsortedArray, null );
-		
-		updateStaticArrayInfo();
+		sortArray( algorithm );
 	}
 }
 
@@ -468,6 +467,8 @@ function sortArray( algorithm )
 {	
 	sortInit();
 	
+	showLoadScreen();
+	
 	switch( algorithm )
 	{
 		case SortingAlgorithms.BUBBLE:
@@ -490,6 +491,11 @@ function sortArray( algorithm )
 		
 			break;
 	}
+	
+	setTimeout( hideLoadScreen, 1000 );
+	setTimeout( updateStaticArrayInfo, 1000 );
+	setTimeout( play, 1250 );
+	
 }
 
 function sortInit()
@@ -500,6 +506,18 @@ function sortInit()
 	currentStepIndex = 0;
 	sortingSteps = [];
 }
+
+
+function showLoadScreen()
+{
+	document.getElementById("array-load-screen").style.display = "flex";
+}
+
+function hideLoadScreen()
+{
+	document.getElementById("array-load-screen").style.display = "none";
+}
+
 
 function sortBubble( array )
 {
