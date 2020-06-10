@@ -390,11 +390,8 @@ html, body
 
 .array-load-animation
 {
-	width: 4vw;
-	height: 4vw;
-	
-	min-width: 50px;
-	min-height: 50px;
+	width: 100px;
+	height: 100px;
 	
 	border: groove 50px;
 	border-radius: 50%;
