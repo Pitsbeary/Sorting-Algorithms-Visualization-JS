@@ -228,8 +228,6 @@ function drawArray( array, step )
 		rectPosX += rectWidth + rectSpacing;
 	}
 	
-	
-	
 	updateDynamicArrayInfo();
 }
 
@@ -695,22 +693,4 @@ function commitStep( array, step )
 	{
 		swapElements( array, step.indexA, step.indexB, false );
 	}
-}
-
-function isSorted( array )
-{
-	if( array.length != sortedArray.length )
-	{
-		return false;
-	}
-	
-	for( let elementIndex = 0; elementIndex < array.length; ++elementIndex )
-	{
-		if( array[ elementIndex ] != sortedArray[ elementIndex ] )
-		{
-			return false;
-		}
-	}
-	
-	return true;
 }

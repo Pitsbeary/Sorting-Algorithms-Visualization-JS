@@ -402,6 +402,19 @@ html, body
 	animation: spin 3s linear infinite;
 }
 
+.array-load-animation-text
+{
+	color: inherit;
+	
+	font-weight: bold;
+	font-size: 1.25em;
+	
+	position: absolute;
+	margin: auto;
+	
+	z-index: 3;
+}
+
 @keyframes spin
 {
   0% 		{ transform: rotate( 0deg	  	); 	}
