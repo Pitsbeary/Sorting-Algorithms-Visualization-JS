@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 
 <!-- 
-	wednesday:
+    thursday/friday:
 	
-	sorting - loading screen
-	wikipedia links to sorting algorithm
-	merge sort
+	- quicksort
+	
+	- wikipedia links to sorting algorithms and short description on the bottom of the page
+	
+	- smooth menu open animations
+	- menus stay open after clicked
+	
+	- loading screen time mapped to the steps count
+	- loading screen text "sorting"
+	
+	- step description
 	
 -->
 
@@ -59,7 +67,7 @@
 											<p id="slider-max-info"> Max value: </p> <input type="range" min="5" max="100" value="50" class="slider" id="array-slider-max-value" oninput="sliderInputArrayMax()">
 									</div>
 									<div class="dropdown-content">
-											<p id="slider-count-info"> Count: </p> <input type="range" min="3" max="200" value="50" class="slider" id="array-slider-element-count" oninput="sliderInputArrayCount()">
+											<p id="slider-count-info"> Count: </p> <input type="range" min="3" max="250" value="50" class="slider" id="array-slider-element-count" oninput="sliderInputArrayCount()">
 									</div>
 									<div class="dropdown-button create-array-button" id="create-button-random" onclick="createArrayRandom()">Create</div>
 								</div>
@@ -95,8 +103,12 @@
 								Insert Sort
 							</div>
 							
-							<div class="dropdown-button" id="pick-insert"  onclick="pickAlgorithm( SortingAlgorithms.MERGE )">
+							<div class="dropdown-button" id="pick-merge"  onclick="pickAlgorithm( SortingAlgorithms.MERGE )">
 								Merge Sort
+							</div>
+							
+							<div class="dropdown-button" id="pick-quick"  onclick="pickAlgorithm( SortingAlgorithms.QUICK )">
+								Quick Sort
 							</div>
 							
 						</div>

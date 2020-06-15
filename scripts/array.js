@@ -488,7 +488,7 @@ function sortArray( algorithm )
 			break;
 			
 		case SortingAlgorithms.QUICK:
-		
+			sortQuick( sortedArray, 0, sortedArray.length - 1 );
 			break;
 	}
 	
@@ -624,6 +624,42 @@ function merge( array, start, middle, end )
 			index2++;
 		}
 	}
+}
+
+function sortQuick( array, left, right )
+{
+	let pivot, j, i;
+	
+    if( left < right )
+    {
+        pivot = left;
+        i = left;
+        j = right;
+		
+        while( i < j )
+        {
+            while( !compareElements( array, i, pivot ) && i < right)
+			{
+				 i++;
+			}
+               
+            while( compareElements( array, j, pivot ) )
+			{
+				 j--;
+			}
+               
+            if( i < j )
+            {
+                swapElements( array, i, j );
+            }
+        }
+
+        swapElements( array, j, pivot );
+		
+        sortQuick( array, left, j - 1 );
+        sortQuick( array, j + 1, right );
+		
+    }
 }
 
 function compareElements( array, indexA, indexB, shouldRegister = true )
