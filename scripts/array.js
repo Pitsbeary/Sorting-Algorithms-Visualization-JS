@@ -1,5 +1,19 @@
 "use strict"
 
+const SortingAlgorithms = {
+	NONE: { name: "None", link: "" },
+    BUBBLE: { name: "Bubble Sort", link: "https://en.wikipedia.org/wiki/Bubble_sort" },
+    SELECT: { name: "Select Sort", link: "https://en.wikipedia.org/wiki/Selection_sort" },
+    INSERT: { name: "Insert Sort", link: "https://en.wikipedia.org/wiki/Insertion_sort" },
+	MERGE: { name: "Merge Sort", link: "https://en.wikipedia.org/wiki/Merge_sort" },
+	QUICK: { name: "Quick Sort", link: "https://en.wikipedia.org/wiki/Quicksort" }
+};
+
+const SortingSteps = {
+    COMPARE: 	"Compare",
+    SWAP: 		"Swap"
+};
+
 let svg = document.getElementById('array-svg');
 let currentArray = [], unsortedArray = [], sortedArray = [];
 
@@ -14,7 +28,7 @@ let playbackRate = 500;
 
 let arrayAvg = 0;
 
-let algorithm = null;
+let algorithm = SortingAlgorithms.NONE
 
 window.onresize = onWindowResize;
 
@@ -51,6 +65,22 @@ function updateStaticArrayInfo()
 	
 	document.getElementById("swaps-count").innerHTML = countSteps( sortingSteps, SortingSteps.SWAP );
 	document.getElementById("comp-count").innerHTML = countSteps( sortingSteps, SortingSteps.COMPARE );
+	
+	updateAlgorithmInfo();
+}
+
+function updateAlgorithmInfo()
+{
+	updateAlgorithmName();
+	
+	document.getElementById("algorithm-desc").innerHTML = algorithm.desc;
+	document.getElementById( "algorithm-wiki-link" ).innerHTML = algorithm.link.link(  algorithm.link );
+}
+
+function updateAlgorithmName()
+{
+	document.getElementById("algorithm-type").innerHTML = algorithm.name;
+	document.getElementById( "algorithm-pick" ).innerHTML = algorithm.name;
 }
 
 function getMax( array )
@@ -108,7 +138,7 @@ function createArrayManual()
 	unsortedArray = arrayText.split(',').map( Number );
 	currentArray = [...unsortedArray];
 	
-	if( algorithm != null )
+	if( algorithm != SortingAlgorithms.NONE )
 	{
 		sortArray( algorithm );
 	}
@@ -138,7 +168,7 @@ function createArrayRandom()
 	
 	currentArray = [...unsortedArray];
 	
-	if( algorithm != null )
+	if( algorithm != SortingAlgorithms.NONE )
 	{
 		sortArray( algorithm );
 	}
@@ -290,7 +320,7 @@ function sliderInputPlaybackSpeed()
 function pickAlgorithm( alg )
 {
 	algorithm = alg;
-	document.getElementById( "algorithm-pick" ).innerHTML = algorithm;
+	updateAlgorithmInfo();
 	
 	if( unsortedArray.length > 0 )
 	{
@@ -447,19 +477,6 @@ function playback()
 	
 	goNext();
 }
-
-const SortingAlgorithms = {
-    BUBBLE: "Bubble Sort",
-    SELECT: "Select Sort",
-    INSERT: "Insert Sort",
-	MERGE: "Merge Sort",
-	QUICK: "Quick Sort"
-};
-
-const SortingSteps = {
-    COMPARE: 	"Compare",
-    SWAP: 		"Swap"
-};
 
 function sortArray( algorithm )
 {	

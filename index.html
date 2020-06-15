@@ -6,7 +6,6 @@
 	
 	- wikipedia links to sorting algorithms and short description on the bottom of the page
 	
-	- smooth menu open animations
 	- menus stay open after clicked
 	
 	- loading screen time mapped to the steps count
@@ -19,6 +18,8 @@
 	
 	- fast forwarding to certain step
 	
+	- various version of algorithms
+	
 -->
 
 <html>
@@ -29,9 +30,11 @@
 	</head>
 	
 	<body>
+	
 		<div class="container">
 			<div class="top">
 				<div class="array-info-container" >
+				
 					<div class="array-info">
 						<p> Elements: </p><p id="elements-count"> </p>
 						<div class="array-info-additional">
@@ -40,6 +43,7 @@
 							<div class="array-info"><p> Avg: </p><p id="array-avg"> </p></div>
 						</div>
 					</div>
+					
 					<div class="array-info">
 						<p> Steps to sort: </p><p id="steps-count"> </p>
 						<div class="array-info-additional">
@@ -47,6 +51,7 @@
 							<div class="array-info"><p> Comparisions: </p><p id="comp-count"> </p></div>
 						</div>
 					</div>
+					
 					<div class="array-info">
 						<p> Current step: </p><p id="current-step"> </p>
 						<div class="array-info-additional">
@@ -54,6 +59,16 @@
 							<div class="array-info"><p> Step value: </p><p id="current-step-indexes"></p> </div>
 						</div>
 					</div>
+					
+					<div class="array-info">
+						<p> Algorithm: </p><p id="algorithm-type"> </p>
+						<div class="array-info-additional">
+							<div class="array-info"><p> Desc: </p><p id="algorithm-desc"> </p></div>
+							<div class="array-info"><p> Read more: </p><p id="algorithm-wiki-link"> </p></div>
+						</div>
+					</div>
+					
+					
 				</div>
 			</div>
 			
@@ -171,8 +186,9 @@
 			
 			
 			<div class="bottom">
-				
+	
 			</div>
+			
 		</div>
 		
 		<script src="scripts/array.js"></script>
