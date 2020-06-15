@@ -628,36 +628,36 @@ function merge( array, start, middle, end )
 
 function sortQuick( array, left, right )
 {
-	let pivot, j, i;
+	let pivotIndex, lowerIndex, upperIndex;
 	
     if( left < right )
     {
-        pivot = left;
-        i = left;
-        j = right;
+        pivotIndex = left;
+        lowerIndex = left;
+        upperIndex = right;
 		
-        while( i < j )
+        while( lowerIndex < upperIndex )
         {
-            while( !compareElements( array, i, pivot ) && i < right)
+            while( !compareElements( array, lowerIndex, pivotIndex ) && lowerIndex < right)
 			{
-				 i++;
+				 lowerIndex++;
 			}
                
-            while( compareElements( array, j, pivot ) )
+            while( compareElements( array, upperIndex, pivotIndex ) )
 			{
-				 j--;
+				 upperIndex--;
 			}
                
-            if( i < j )
+            if( lowerIndex < upperIndex )
             {
-                swapElements( array, i, j );
+                swapElements( array, lowerIndex, upperIndex );
             }
         }
 
-        swapElements( array, j, pivot );
+        swapElements( array, upperIndex, pivotIndex );
 		
-        sortQuick( array, left, j - 1 );
-        sortQuick( array, j + 1, right );
+        sortQuick( array, left, upperIndex - 1 );
+        sortQuick( array, upperIndex + 1, right );
 		
     }
 }
