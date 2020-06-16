@@ -1,12 +1,29 @@
 "use strict"
 
 const SortingAlgorithms = {
-	NONE: { name: "None", link: "" },
-    BUBBLE: { name: "Bubble Sort", link: "https://en.wikipedia.org/wiki/Bubble_sort" },
-    SELECT: { name: "Select Sort", link: "https://en.wikipedia.org/wiki/Selection_sort" },
-    INSERT: { name: "Insert Sort", link: "https://en.wikipedia.org/wiki/Insertion_sort" },
-	MERGE: { name: "Merge Sort", link: "https://en.wikipedia.org/wiki/Merge_sort" },
-	QUICK: { name: "Quick Sort", link: "https://en.wikipedia.org/wiki/Quicksort" }
+	NONE: { name: "None", link: "", desc: "" },
+	
+    BUBBLE: {	name: "Bubble Sort", 
+					link: "https://en.wikipedia.org/wiki/Bubble_sort",
+					desc: "Bubble sort, sometimes referred to as sinking sort, is a simple sorting algorithm that repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order. The pass through the list is repeated until the list is sorted"
+	},
+				
+    SELECT: {	name: "Select Sort", 
+					link: "https://en.wikipedia.org/wiki/Selection_sort",
+					desc: "The algorithm divides the input list into two parts: a sorted sublist of items which is built up from left to right at the front (left) of the list and a sublist of the remaining unsorted items that occupy the rest of the list. Initially, the sorted sublist is empty and the unsorted sublist is the entire input list. The algorithm proceeds by finding the smallest (or largest, depending on sorting order) element in the unsorted sublist, exchanging (swapping) it with the leftmost unsorted element (putting it in sorted order), and moving the sublist boundaries one element to the right."
+	},
+	
+    INSERT: {	name: "Insert Sort", 
+					link: "https://en.wikipedia.org/wiki/Insertion_sort", 
+					desc: "Insertion sort iterates, consuming one input element each repetition, and growing a sorted output list. At each iteration, insertion sort removes one element from the input data, finds the location it belongs within the sorted list, and inserts it there. It repeats until no input elements remain." },
+	
+	MERGE: {	name: "Merge Sort", 
+					link: "https://en.wikipedia.org/wiki/Merge_sort",
+					desc: "Like QuickSort, Merge Sort is a Divide and Conquer algorithm. It divides input array in two halves, calls itself for the two halves and then merges the two sorted halves." },
+	
+	QUICK: {	name: "Quick Sort", 
+					link: "https://en.wikipedia.org/wiki/Quicksort", 
+					desc: "Quicksort is a divide-and-conquer algorithm. It works by selecting a 'pivot' element from the array and partitioning the other elements into two sub-arrays, according to whether they are less than or greater than the pivot. The sub-arrays are then sorted recursively. This can be done in-place, requiring small additional amounts of memory to perform the sorting." }
 };
 
 const SortingSteps = {
@@ -74,7 +91,22 @@ function updateAlgorithmInfo()
 	updateAlgorithmName();
 	
 	document.getElementById("algorithm-desc").innerHTML = algorithm.desc;
-	document.getElementById( "algorithm-wiki-link" ).innerHTML = algorithm.link.link(  algorithm.link );
+	
+	document.getElementById( "algorithm-wiki-link" ).innerHTML = "";
+	document.getElementById( "algorithm-wiki-link" ).appendChild( createLink( algorithm.link ) );
+}
+
+function createLink( linkText )
+{
+	let link = document.createElement( "a" );
+	
+	link.href = linkText;
+	link.target = "_blank";
+	
+	link.innerHTML = linkText;
+	
+	return link;
+	
 }
 
 function updateAlgorithmName()

@@ -79,9 +79,12 @@ a:hover
 	display: flex;
 	flex-direction: row;
 	
+	align-items: flex-start;
+	justify-content: flex-start;
+	
 	position: relative;
 	
-	align-items: center;
+
 	
 	min-width: 15%;
 	
@@ -118,7 +121,7 @@ a:hover
 .array-info p
 {
 	padding: 5px;
-	white-space: nowrap;
+	white-space: wrap;
 }
 
 .sidebar
