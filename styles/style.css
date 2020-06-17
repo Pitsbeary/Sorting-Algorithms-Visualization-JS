@@ -84,9 +84,7 @@ a:hover
 	
 	position: relative;
 	
-
-	
-	min-width: 15%;
+	min-width: 17.5%;
 	
 	background: var(--misc-color-3);
 	cursor: pointer;
@@ -96,10 +94,13 @@ a:hover
 {	
 	display: none;
 	flex-direction: column;
+	
+	flex-wrap: wrap;
 
 	position: absolute;
 	
 	width: 100%;
+	margin: 2px;
 	
 	top: 100%;
 	left: 0;
@@ -115,13 +116,14 @@ a:hover
 .array-info-additional .array-info
 {
 	min-width: 125%;
+	height: auto;
+	
 	cursor: default;
 }
 
 .array-info p
 {
 	padding: 5px;
-	white-space: wrap;
 }
 
 .sidebar
@@ -271,6 +273,8 @@ a:hover
 	flex-direction: row;
 	
 	background: inherit;
+	
+	min-width: 260px;
 }
 
 .dropdown .dropdown-button

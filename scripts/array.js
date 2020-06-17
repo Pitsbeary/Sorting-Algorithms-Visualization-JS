@@ -102,7 +102,7 @@ function createLink( linkText )
 	
 	link.href = linkText;
 	link.target = "_blank";
-	
+
 	link.innerHTML = linkText;
 	
 	return link;
