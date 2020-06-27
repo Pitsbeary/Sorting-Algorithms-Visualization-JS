@@ -35,12 +35,12 @@ html, body
 a
 {
 	text-decoration: none;
-	color: var( --main-color );
+	color: var( --misc-color-2  );
 }
 
 a:hover
 {
-	color: var( --misc-color-2 );
+	color: var( --main-color );
 }
 
 .container
@@ -422,15 +422,13 @@ a:hover
 
 .array-load-animation-text
 {
-	color: inherit;
-	
 	font-weight: bold;
 	font-size: 1.25em;
 	
 	position: absolute;
 	margin: auto;
 	
-	color: var(--misc-color-1);
+	color: var( --main-color );
 	
 	z-index: 3;
 }
