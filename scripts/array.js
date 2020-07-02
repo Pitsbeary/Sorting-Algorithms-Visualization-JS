@@ -3,15 +3,15 @@
 const SortingAlgorithms = {
 	NONE: { name: "None", link: "", desc: "" },
 	
-    BUBBLE: {	name: "Bubble Sort", 
+    BUBBLE: { name: "Bubble Sort", 
 					link: "https://en.wikipedia.org/wiki/Bubble_sort",
 					desc: "Bubble sort, sometimes referred to as sinking sort, is a simple sorting algorithm that repeatedly steps through the list, compares adjacent elements and swaps them if they are in the wrong order. The pass through the list is repeated until the list is sorted" },
 				
-    SELECT: {	name: "Select Sort", 
+    SELECT: { name: "Select Sort", 
 					link: "https://en.wikipedia.org/wiki/Selection_sort",
 					desc: "The algorithm divides the input list into two parts: a sorted sublist of items which is built up from left to right at the front (left) of the list and a sublist of the remaining unsorted items that occupy the rest of the list. Initially, the sorted sublist is empty and the unsorted sublist is the entire input list. The algorithm proceeds by finding the smallest (or largest, depending on sorting order) element in the unsorted sublist, exchanging (swapping) it with the leftmost unsorted element (putting it in sorted order), and moving the sublist boundaries one element to the right." },
 	
-    INSERT: {	name: "Insert Sort", 
+    INSERT: { name: "Insert Sort", 
 					link: "https://en.wikipedia.org/wiki/Insertion_sort", 
 					desc: "Insertion sort iterates, consuming one input element each repetition, and growing a sorted output list. At each iteration, insertion sort removes one element from the input data, finds the location it belongs within the sorted list, and inserts it there. It repeats until no input elements remain." },
 	
@@ -65,11 +65,25 @@ function init()
 	
 	playbackRate = 1000 - document.getElementById( "playback-speed-slider" ).value;
 	
-	updateStaticArrayInfo();
-	updateDynamicArrayInfo();
+	displayInfo();
+	displayInfo();
 }
 
-function updateStaticArrayInfo()
+function displayInfo()
+{
+	if( currentArray.length > 0 )
+	{
+		displayArrayInfo();
+	}
+	
+	if( sortingSteps.length > 0 )
+	{
+		displayAlgorithmInfo();
+		displaySortingInfo();
+	}
+}
+
+function displayArrayInfo()
 {
 	document.getElementById("elements-count").innerHTML = unsortedArray.length;
 	document.getElementById("steps-count").innerHTML = sortingSteps.length;
@@ -77,22 +91,29 @@ function updateStaticArrayInfo()
 	document.getElementById("array-max").innerHTML = getMax( unsortedArray );
 	document.getElementById("array-min").innerHTML = getMin( unsortedArray );
 	document.getElementById("array-avg").innerHTML = Math.round( avg( unsortedArray ) );
-	
-	document.getElementById("swaps-count").innerHTML = countSteps( sortingSteps, SortingSteps.SWAP );
-	document.getElementById("comp-count").innerHTML = countSteps( sortingSteps, SortingSteps.COMPARE );
-	
-	updateAlgorithmInfo();
 }
 
-function updateAlgorithmInfo()
+function displayAlgorithmInfo()
 {
-	updateAlgorithmName();
+	document.getElementById( "algorithm-type" ).innerHTML = algorithm.name;
+	document.getElementById( "algorithm-pick" ).innerHTML = algorithm.name;
 	
 	document.getElementById("algorithm-desc").innerHTML = algorithm.desc;
 	
 	document.getElementById( "algorithm-wiki-link" ).innerHTML = "";
 	document.getElementById( "algorithm-wiki-link" ).appendChild( createLink( algorithm.link ) );
 }
+
+function displaySortingInfo()
+{
+	document.getElementById("swaps-count").innerHTML = countSteps( sortingSteps, SortingSteps.SWAP );
+	document.getElementById("comp-count").innerHTML = countSteps( sortingSteps, SortingSteps.COMPARE );
+	
+	document.getElementById("current-step").innerHTML = currentStepIndex + 1;
+	document.getElementById("current-step-type").innerHTML = sortingSteps[ currentStepIndex ].stepType;
+	document.getElementById("current-step-indexes").innerHTML = sortingSteps[ currentStepIndex ].indexA + "[" + currentArray[ sortingSteps[ currentStepIndex ].indexA ] + "] with " + sortingSteps[ currentStepIndex ].indexB  + "[" + currentArray[ sortingSteps[ currentStepIndex ].indexB ] + "]";
+}
+
 
 function createLink( linkText )
 {
@@ -104,13 +125,6 @@ function createLink( linkText )
 	link.innerHTML = linkText;
 	
 	return link;
-	
-}
-
-function updateAlgorithmName()
-{
-	document.getElementById( "algorithm-type" ).innerHTML = algorithm.name;
-	document.getElementById( "algorithm-pick" ).innerHTML = algorithm.name;
 }
 
 function getMax( array )
@@ -143,70 +157,6 @@ function getMin( array )
 	return min;
 }
 
-function updateDynamicArrayInfo()
-{
-	if( sortingSteps.length == 0 )
-	{
-		document.getElementById("current-step").innerHTML = 0;
-		return;
-	}
-	
-	document.getElementById("current-step").innerHTML = currentStepIndex + 1;
-	document.getElementById("current-step-type").innerHTML = sortingSteps[ currentStepIndex ].stepType;
-	document.getElementById("current-step-indexes").innerHTML = sortingSteps[ currentStepIndex ].indexA + "[" + currentArray[ sortingSteps[ currentStepIndex ].indexA ] + "] with " + sortingSteps[ currentStepIndex ].indexB  + "[" + currentArray[ sortingSteps[ currentStepIndex ].indexB ] + "]";
-}
-
-function createArrayManual()
-{
-	if( isPlaying )
-	{
-		stopPlayback();
-	}
-	
-	let arrayText = document.getElementById('manual-array-input').value;
-	
-	unsortedArray = arrayText.split(',').map( Number );
-	currentArray = [...unsortedArray];
-	
-	if( algorithm != SortingAlgorithms.NONE )
-	{
-		sortArray( algorithm );
-	}
-	
-	updateStaticArrayInfo();
-	drawArray( unsortedArray, null );
-}
-
-function createArrayRandom()
-{
-	if( isPlaying )
-	{
-		stopPlayback();
-	}
-	
-	let arrayElementCount =  Number( document.getElementById( "array-slider-element-count" ).value );
-	let arrayMaxValue = Number( document.getElementById( "array-slider-max-value" ).value );
-
-	let arrayMinValue = 1;
-	
-	unsortedArray = [];
-	
-	for( let elementIndex = 0; elementIndex < arrayElementCount; ++elementIndex )
-	{
-		unsortedArray.push( randomInt( arrayMinValue, arrayMaxValue + 1 ) );
-	}
-	
-	currentArray = [...unsortedArray];
-	
-	if( algorithm != SortingAlgorithms.NONE )
-	{
-		sortArray( algorithm );
-	}
-	
-	updateStaticArrayInfo();
-	drawArray( unsortedArray, null );
-}
-
 function avg( array )
 {
 	let sum = 0;
@@ -234,7 +184,62 @@ function countSteps( stepsArray, stepType )
 	return sum;
 }
 
-function randomInt( min, max ) {
+function createArrayManual()
+{
+	if( isPlaying )
+	{
+		stopPlayback();
+	}
+	
+	let arrayText = document.getElementById( 'manual-array-input' ).value;
+	
+	unsortedArray = arrayText.split(',').map( Number );
+	currentArray = [...unsortedArray];
+	
+	if(  isAlgorithmSet() )
+	{
+		sortArray( algorithm );
+	}
+	
+	drawArray( unsortedArray, null );
+}
+
+function createArrayRandom()
+{
+	if( isPlaying )
+	{
+		stopPlayback();
+	}
+	
+	let arrayElementCount =  Number( document.getElementById( "array-slider-element-count" ).value );
+	let arrayMaxValue = Number( document.getElementById( "array-slider-max-value" ).value );
+
+	let arrayMinValue = 1;
+	
+	unsortedArray = [];
+	
+	for( let elementIndex = 0; elementIndex < arrayElementCount; elementIndex++ )
+	{
+		unsortedArray.push( randomInt( arrayMinValue, arrayMaxValue + 1 ) );
+	}
+	
+	currentArray = [...unsortedArray];
+	
+	if( isAlgorithmSet() )
+	{
+		sortArray( algorithm );
+	}
+	
+	drawArray( unsortedArray, null );
+}
+
+function isAlgorithmSet()
+{
+	return algorithm != SortingAlgorithms.NONE;
+}
+
+function randomInt( min, max ) 
+{
 	return min + Math.floor( ( max - min ) * Math.random() );
 }
 
@@ -249,65 +254,80 @@ function drawArray( array, step )
 	let arraySize = array.length;
 	
 	let rectWidth = (availableWidth - rectSpacing * (arraySize + 1) ) / arraySize;
-	
 	let rectHeightMultiplier = availableHeight / Math.max( ...array );
 	
 	let rectPosX = rectSpacing;
 	
-	for( let elementIndex = 0; elementIndex < arraySize; ++elementIndex )
+	for( let elementIndex = 0; elementIndex < arraySize; elementIndex++ )
 	{
 		let rectHeight = array[ elementIndex ] * rectHeightMultiplier - rectSpacing;
 		let rectPosY = availableHeight - rectHeight;
 
-		let rect = createRect( rectPosX, rectPosY, rectWidth, rectHeight );
-		
-		if( step === null || !( elementIndex == step.indexA || elementIndex == step.indexB ) )
-		{
-			rect.setAttributeNS(null, 'class', 'array-element default' );
-		}
-		else if( elementIndex == step.indexA || elementIndex == step.indexB )
-		{
-			switch( step.stepType )
-			{
-				case SortingSteps.COMPARE:
-					rect.setAttributeNS(null, 'class', 'array-element compared' );
-				break;
-				
-				case SortingSteps.SWAP:
-					rect.setAttributeNS(null, 'class', 'array-element swapped' );
-				break;
-			}
-		}
-		
-		rect.setAttributeNS(null, 'value', array[ elementIndex ] );
-		rect.setAttributeNS(null, 'onmousemove', "showTooltip(evt)" );
-		rect.setAttributeNS(null, 'onmouseout', "hideTooltip()" );
-		
+		let rect = createRect( rectPosX, rectPosY, rectWidth, rectHeight, getRectColor( elementIndex, step ), array[ elementIndex ] );
 		svg.appendChild( rect );
 		
-		rectPosX += rectWidth + rectSpacing;
+		rectPosX += ( rectWidth + rectSpacing );
 	}
 	
-	updateDynamicArrayInfo();
+	displayInfo();
 }
 
-function createRect( rectPosX, rectPosY, rectWidth, rectHeight )
+function getRectColor( elementIndex, step )
 {
-	let resultRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+	if( isDefaultOrNull( elementIndex, step ) )
+	{
+		return 'default';
+	}
 	
-	resultRect.setAttributeNS(null, 'x', rectPosX);
-    resultRect.setAttributeNS(null, 'y', rectPosY);
-	resultRect.setAttributeNS(null, 'width', rectWidth + "px" );
-    resultRect.setAttributeNS(null, 'height', rectHeight + "px" );
-	resultRect.setAttributeNS(null, 'class', "array-element" );
+	if( isSpecial( elementIndex, step ) )
+	{
+		switch( step.stepType )
+		{
+			case SortingSteps.COMPARE:
+				return 'compared';
+			break;
+				
+			case SortingSteps.SWAP:
+				return 'swapped';
+			break;
+		}
+	}
+}
+
+function isDefaultOrNull( elementIndex, step )
+{
+	return step === null || !( elementIndex == step.indexA || elementIndex == step.indexB );
+}
+
+function isSpecial( elementIndex, step ) 
+{
+	return elementIndex == step.indexA || elementIndex == step.indexB;
+}
+
+function createRect( rectPosX, rectPosY, rectWidth, rectHeight, rectClassName, rectValue )
+{
+	let resultRect = document.createElementNS( 'http://www.w3.org/2000/svg', 'rect' );
+	
+	resultRect.setAttributeNS( null, 'x', rectPosX );
+    resultRect.setAttributeNS( null, 'y', rectPosY );
+	
+	resultRect.setAttributeNS( null, 'width', rectWidth + 'px' );
+    resultRect.setAttributeNS( null, 'height', rectHeight + 'px' );
+	
+	resultRect.setAttributeNS( null, 'class', ( 'array-element ' + rectClassName ) );
+	
+	resultRect.setAttributeNS( null, 'value', rectValue );
+	
+	resultRect.setAttributeNS( null, 'onmousemove', 'showTooltip( evt )' );
+	resultRect.setAttributeNS( null, 'onmouseout', "hideTooltip()" );
 
 	return resultRect;
 }
 
 function showTooltip(evt, text) 
 {
-	let tooltip = document.getElementById("array-tooltip");
-	tooltip.innerHTML = event.currentTarget.getAttributeNS( null, "value" );
+	let tooltip = document.getElementById( 'array-tooltip' );
+	tooltip.innerHTML = event.currentTarget.getAttributeNS( null, 'value' );
 	
 	tooltip.style.display = "block";
 
@@ -317,8 +337,8 @@ function showTooltip(evt, text)
 
 function hideTooltip() 
 {
-  var tooltip = document.getElementById("array-tooltip");
-  tooltip.style.display = "none";
+  var tooltip = document.getElementById( 'array-tooltip' );
+  tooltip.style.display = 'none';
 }
 
 function clearDrawing()
@@ -328,12 +348,12 @@ function clearDrawing()
 
 function sliderInputArrayMax()
 {
-	displaySliderValue( "slider-max-info", "Max value:", event.currentTarget.value );
+	displaySliderValue( 'slider-max-info', 'Max value: ', event.currentTarget.value );
 }
 
 function sliderInputArrayCount()
 {
-	displaySliderValue( "slider-count-info", "Count: ", event.currentTarget.value );
+	displaySliderValue( 'slider-count-info', 'Count: ', event.currentTarget.value );
 }
 
 function sliderInputPlaybackSpeed()
@@ -350,7 +370,7 @@ function sliderInputPlaybackSpeed()
 function pickAlgorithm( alg )
 {
 	algorithm = alg;
-	updateAlgorithmInfo();
+	displayInfo();
 	
 	if( unsortedArray.length > 0 )
 	{
@@ -368,61 +388,51 @@ function displaySliderValue( pid, desc, value )
 	document.getElementById( pid ).innerHTML = desc + " " + value;
 }
 
-function prev()
+function prevButtonOnClick()
 {	
+	if( unsortedArray.length == 0 )
+	{
+		return;
+	}
+	
 	if( currentStepIndex <= 0 )
 	{
 		return;
 	}
 	
-	if( currentStepIndex >= sortingSteps.length )
-	{
-		last();
-	}
-	
-	drawArray( currentArray, sortingSteps[ currentStepIndex ] );
 	goPrev();
+	drawArray( currentArray, sortingSteps[ currentStepIndex ] );
 }
 
 function goPrev()
 {
-	if( currentStepIndex == 0 )
+	commitStep( currentArray, sortingSteps[ currentStepIndex ] );
+	--currentStepIndex;
+}
+
+function nextButtonOnClick()
+{	
+	if( unsortedArray.length == 0 )
 	{
 		return;
 	}
 	
-	--currentStepIndex;
-	commitStep( currentArray, sortingSteps[ currentStepIndex ] );
-}
-
-function next()
-{	
 	if( currentStepIndex >= sortingSteps.length - 1 )
 	{
 		return;
 	}
 	
-	if( currentStepIndex < 0 )
-	{
-		first();
-	}
-	
-	drawArray( currentArray, sortingSteps[ currentStepIndex ] );
 	goNext();
+	drawArray( currentArray, sortingSteps[ currentStepIndex ] );
 }
 
 function goNext()
 {
-	if( currentStepIndex == sortingSteps.length - 1 )
-	{
-		return;
-	}
-	
 	++currentStepIndex;
 	commitStep( currentArray, sortingSteps[ currentStepIndex ] );
 }
 
-function first()
+function firstButtonOnClick()
 {
 	if( unsortedArray.length == 0 )
 	{
@@ -435,7 +445,7 @@ function first()
 	drawArray( currentArray, sortingSteps[ currentStepIndex ] );
 }
 
-function last()
+function lastButtonOnClick()
 {
 	if( sortedArray.length == 0 )
 	{
@@ -446,6 +456,11 @@ function last()
 	currentStepIndex = sortingSteps.length - 1;
 	
 	drawArray( currentArray, sortingSteps[ currentStepIndex ] );
+}
+
+function playButtonOnClick()
+{
+	play();
 }
 
 function play()
@@ -510,10 +525,24 @@ function playback()
 
 function sortArray( algorithm )
 {	
-	sortInit();
+	prepareForSorting();
+	sort();
+	finishSorting();
+}
+
+function prepareForSorting()
+{
+	sortedArray = [...unsortedArray];
+	currentArray = [...unsortedArray];
 	
+	sortingSteps = [];
+	currentStepIndex = 0;
+		
 	showLoadScreen();
-	
+}
+
+function sort()
+{
 	switch( algorithm )
 	{
 		case SortingAlgorithms.BUBBLE:
@@ -536,21 +565,15 @@ function sortArray( algorithm )
 			sortQuick( sortedArray, 0, sortedArray.length - 1 );
 			break;
 	}
-	
-	drawArray( unsortedArray, null );
-	setTimeout( hideLoadScreen, 1000 );
-	setTimeout( updateStaticArrayInfo, 1000 );
-	setTimeout( play, 1250 );
-	
 }
 
-function sortInit()
+function finishSorting()
 {
-	sortedArray = [...unsortedArray];
-	currentArray = [...unsortedArray];
+	drawArray( unsortedArray, null );
 	
-	currentStepIndex = 0;
-	sortingSteps = [];
+	setTimeout( hideLoadScreen, 1000 );
+	setTimeout( displayInfo, 1000 );
+	setTimeout( play, 1250 );
 }
 
 function showLoadScreen()
@@ -563,7 +586,6 @@ function hideLoadScreen()
 	document.getElementById("array-load-screen").style.display = "none";
 }
 
-
 function sortBubble( array )
 {
 	let sorted = false;
@@ -572,7 +594,7 @@ function sortBubble( array )
 	{
 		sorted = true;
 		
-		for( let elementIndex = 0; elementIndex < array.length - 1; ++elementIndex )
+		for( let elementIndex = 0; elementIndex < array.length - 1; elementIndex++ )
 		{
 			if( compareElements( array, elementIndex, elementIndex + 1 ) )
 			{
@@ -585,11 +607,11 @@ function sortBubble( array )
 
 function sortSelect( array )
 {
-	for( let sortIndex = 0; sortIndex < array.length - 1; ++sortIndex )
+	for( let sortIndex = 0; sortIndex < array.length - 1; sortIndex++ )
 	{
 		let minIndex = sortIndex;
 		
-		for( let elementIndex = sortIndex + 1; elementIndex < array.length; ++elementIndex )
+		for( let elementIndex = sortIndex + 1; elementIndex < array.length; elementIndex++ )
 		{
 			if( compareElements( array, minIndex, elementIndex ) )
 			{
@@ -606,7 +628,7 @@ function sortSelect( array )
 
 function sortInsert( array )
 {
-	for( let sortIndex = 0; sortIndex < array.length - 1; ++sortIndex )
+	for( let sortIndex = 0; sortIndex < array.length - 1; sortIndex++ )
 	{
 		let elementIndex = sortIndex + 1;
 		
@@ -626,7 +648,6 @@ function sortInsert( array )
 
 function sortMerge( array, left, right )
 {
-	
 	if ( left < right )
 	{ 
         let middle = left + Math.floor( ( right - left ) / 2 ); 
