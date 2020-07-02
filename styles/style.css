@@ -234,6 +234,21 @@ a:hover
 	border-radius: 0; 
 }
 
+#manual-array-input
+{
+
+}
+
+#manual-array-input.invalid
+{
+	background: #BB2525;
+}
+
+#manual-array-input.valid
+{
+	background: #25BB25;
+}
+
 #slider-max-info, #slider-count-info
 {
 	width: 100%;

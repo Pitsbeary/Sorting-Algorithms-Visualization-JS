@@ -177,7 +177,7 @@ function countSteps( stepsArray, stepType )
 	{
 		if( step.stepType == stepType )
 		{
-			++sum;
+			sum++;
 		}
 	}
 
@@ -188,12 +188,23 @@ function createArrayManual()
 {
 	if( isPlaying )
 	{
-		stopPlayback();
+			stopPlayback();
 	}
 	
-	let arrayText = document.getElementById( 'manual-array-input' ).value;
+	let textInput = document.getElementById( 'manual-array-input' ).value.split(',');
 	
-	unsortedArray = arrayText.split(',').map( Number );
+	if( validateManualArrayInput( textInput ) )
+	{
+		manualInputValid();
+		console.log( textInput ) ;
+		unsortedArray = textInput.map( Number );
+		
+	}
+	else
+	{
+		manualInputInvalid();
+	}
+	
 	currentArray = [...unsortedArray];
 	
 	if(  isAlgorithmSet() )
@@ -202,6 +213,26 @@ function createArrayManual()
 	}
 	
 	drawArray( unsortedArray, null );
+}
+
+function validateManualArrayInput( textInput )
+{
+	let regex = /^\d+(,\d+)*$/;
+	return regex.exec( textInput );
+}
+
+function manualInputValid()
+{
+	let textInput = document.getElementById( 'manual-array-input' );
+	textInput.setAttribute( 'class', 'valid');
+	
+}
+
+function manualInputInvalid()
+{
+	let textInput = document.getElementById( 'manual-array-input' );
+	textInput.setAttribute( 'class', 'invalid');
+	
 }
 
 function createArrayRandom()
@@ -220,14 +251,14 @@ function createArrayRandom()
 	
 	for( let elementIndex = 0; elementIndex < arrayElementCount; elementIndex++ )
 	{
-		unsortedArray.push( randomInt( arrayMinValue, arrayMaxValue + 1 ) );
+			unsortedArray.push( randomInt( arrayMinValue, arrayMaxValue + 1 ) );
 	}
 	
 	currentArray = [...unsortedArray];
 	
 	if( isAlgorithmSet() )
 	{
-		sortArray( algorithm );
+			sortArray( algorithm );
 	}
 	
 	drawArray( unsortedArray, null );
@@ -724,7 +755,6 @@ function sortQuick( array, left, right )
 		
         sortQuick( array, left, upperIndex - 1 );
         sortQuick( array, upperIndex + 1, right );
-		
     }
 }
 
