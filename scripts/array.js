@@ -198,7 +198,6 @@ function createArrayManual()
 		manualInputValid();
 		console.log( textInput ) ;
 		unsortedArray = textInput.map( Number );
-		
 	}
 	else
 	{
