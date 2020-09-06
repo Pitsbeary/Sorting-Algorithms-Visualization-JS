@@ -1,21 +1,5 @@
 <!DOCTYPE html>
 
-<!-- 
-
-    thursday/friday:
-	
-	- menus stay open after clicked
-	
-	- loading screen time mapped to the steps count
-	
-	- is sorted check
-	
-	- fast forwarding to certain step
-	
-	- various version of algorithms
-	
--->
-
 <html>
 
 	<head>
@@ -78,10 +62,10 @@
 								<p> Random </p>
 								<div class="dropdown-content-hidden">
 									<div class="dropdown-content" >
-											<p id="slider-max-info"> Max value: </p> <input type="range" min="5" max="100" value="50" class="slider" id="array-slider-max-value" oninput="sliderInputArrayMax()">
+											<p id="slider-max-info"> Max value: </p> <input type="range" min="5" max="100" value="50" class="slider" id="array-slider-max-value" oninput="sliderOnInputArrayMax()">
 									</div>
 									<div class="dropdown-content">
-											<p id="slider-count-info"> Count: </p> <input type="range" min="3" max="250" value="50" class="slider" id="array-slider-element-count" oninput="sliderInputArrayCount()">
+											<p id="slider-count-info"> Count: </p> <input type="range" min="3" max="250" value="50" class="slider" id="array-slider-element-count" oninput="sliderOnInputArrayCount()">
 									</div>
 									<div class="dropdown-button create-array-button" id="create-button-random" onclick="createArrayRandom()">Create</div>
 								</div>
@@ -162,7 +146,7 @@
 						</div>
 						
 						<div class="nav-button" id="nav-play" onclick="playButtonOnClick()">
-							<div class="shape arrow-left"></div>
+							<div class="shape arrow-right"></div>
 						</div>
 						
 						<div class="nav-button" id="nav-next" onclick="nextButtonOnClick()">

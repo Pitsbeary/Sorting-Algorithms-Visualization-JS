@@ -530,12 +530,12 @@ a:hover
 	border-color: blue;
 }
 
-#nav-play .arrow-left
+#nav-play .arrow-right
 {
-	border-right-color: var(--misc-color-1);
+	border-left-color: white;
 }
 
 #nav-play .rect
 {
-	border-color: var(--misc-color-4);
+	border-color: white;
 }
