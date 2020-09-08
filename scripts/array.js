@@ -138,6 +138,11 @@ function init()
 
 function displayInfo()
 {
+	if( algorithm != SortingAlgorithms.NONE )
+	{
+		displayAlgorithmInfo();
+	}
+	
 	if( currentArray.length > 0 )
 	{
 		displayArrayInfo();
@@ -145,7 +150,6 @@ function displayInfo()
 	
 	if( sortingSteps.length > 0 )
 	{
-		displayAlgorithmInfo();
 		displaySortingInfo();
 	}
 }

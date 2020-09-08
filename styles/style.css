@@ -28,6 +28,7 @@ html, body
 	height: 100%;
 	
 	font-family: Quicksand-Light;
+	font-weight: 600;
 	
 	background: var(--main-color);
 }
@@ -83,42 +84,48 @@ a:hover
 	justify-content: flex-start;
 	
 	position: relative;
-	
+
 	min-width: 17.5%;
-	
+
 	background: var(--misc-color-3);
 	cursor: pointer;
 }
 
 .array-info-additional
 {	
-	display: none;
+	display: flex;
 	flex-direction: column;
 	
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
 
 	position: absolute;
 	
-	width: 100%;
+	min-width: 125%;
+
 	margin: 2px;
-	
 	top: 100%;
 	left: 0;
-	
+
+	max-height: 0;
+
 	z-index: 6;
+
+	background: var(--misc-color-3);
+	cursor: default;
+	
+	transition: max-height 0.5s linear;
+	
+	overflow: hidden;
 }
 
 .array-info:hover .array-info-additional
 {
-	display: flex;
+	max-height: 500px;
 }
 
-.array-info-additional .array-info
+.array-info-additional .array-info:last-child
 {
-	min-width: 125%;
-	height: auto;
-	
-	cursor: default;
+	border-bottom: 2px solid white;
 }
 
 .array-info p
@@ -305,12 +312,21 @@ a:hover
 	background: inherit;
 	cursor: default;
 	
-	display: none;
-	
-	min-width: 100%;
+	display: block;	
+
+	width: 100%;
+	max-width: 0;
 
 	left: 100%;
 	top: 0%;
+
+	transition: max-width 0.25s linear;
+	overflow: hidden;
+}
+
+.dropdown-content-hidden
+{
+	overflow: hidden;
 }
 
 .dropdown-button:hover
@@ -320,12 +336,15 @@ a:hover
 
 .dropdown-button:hover > .dropdown-content-hidden
 {
-	display: block;	
+	max-width: 500px;
+	overflow: visible;
 }
 
-.dropdown-content-hidden:hover
+
+.dropdown-content-hidden:hover .dropdown-content-hidden
 {
-	display: block;
+	max-width: 500px;
+	overflow: visible;
 }
 
 .center
@@ -338,12 +357,25 @@ a:hover
 	background: var(--misc-color-2);
 }
 
-.bottom
+.footer
 {	
 	grid-column: 1 / 4;
 	grid-row: 3;
 	
 	background: var(--misc-color-1);
+
+	display: flex;
+	align-items: center;
+}
+
+.footer p
+{	
+	margin: 5px auto;
+
+	margin-left: auto;
+	margin-right: auto;
+
+	font-size: 1.25em;
 }
 
 .array-container
@@ -450,7 +482,7 @@ a:hover
 
 @keyframes spin
 {
-  0% 		{ transform: rotate( 0deg	  	); 	}
+  0% 	{ transform: rotate( 0deg	  	); 	}
   50% 	{ transform: rotate( 360deg 	); 	}
   100% 	{ transform: rotate( 0deg	  	); 	}
 }

@@ -61,10 +61,10 @@
 							<div class="dropdown-button" id="random-button">
 								<p> Random </p>
 								<div class="dropdown-content-hidden">
-									<div class="dropdown-content" >
+									<div class="dropdown-content-hidden" >
 											<p id="slider-max-info"> Max value: </p> <input type="range" min="5" max="100" value="50" class="slider" id="array-slider-max-value" oninput="sliderOnInputArrayMax()">
 									</div>
-									<div class="dropdown-content">
+									<div class="dropdown-content-hidden">
 											<p id="slider-count-info"> Count: </p> <input type="range" min="3" max="250" value="50" class="slider" id="array-slider-element-count" oninput="sliderOnInputArrayCount()">
 									</div>
 									<div class="dropdown-button create-array-button" id="create-button-random" onclick="createArrayRandom()">Create</div>
@@ -74,7 +74,7 @@
 							<div class="dropdown-button" id="manual-button">
 								<p> Manual </p>
 								<div class="dropdown-content-hidden">
-									<div class="dropdown-content">
+									<div class="dropdown-content-hidden">
 										<input type="text" id="manual-array-input"></input>
 									</div>
 									<div class="dropdown-button create-array-button" id="create-button-manual" onclick="createArrayManual()">Create</div>
@@ -164,8 +164,8 @@
 			</div>
 			
 			
-			<div class="bottom">
-	
+			<div class="footer">
+				<p> Array Sort Visualization </p>
 			</div>
 			
 		</div>
