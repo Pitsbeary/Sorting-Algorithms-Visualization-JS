@@ -12,38 +12,38 @@
 	
 		<div class="container">
 			<div class="top">
-				<div class="array-info-container" >
+				<div class="horizontal-menu" >
 				
-					<div class="array-info">
+					<div class="horizontal-menu-item">
 						<p> Elements: </p><p id="elements-count"> </p>
-						<div class="array-info-additional">
-							<div class="array-info"><p> Max: </p><p id="array-max"> </p></div>
-							<div class="array-info"><p> Min: </p><p id="array-min"> </p></div>
-							<div class="array-info"><p> Avg: </p><p id="array-avg"> </p></div>
+						<div class="horizontal-menu-item-additional first">
+							<div class="horizontal-menu-item"><p> Max: </p><p id="array-max"> </p></div>
+							<div class="horizontal-menu-item"><p> Min: </p><p id="array-min"> </p></div>
+							<div class="horizontal-menu-item"><p> Avg: </p><p id="array-avg"> </p></div>
 						</div>
 					</div>
 					
-					<div class="array-info">
+					<div class="horizontal-menu-item">
 						<p> Steps to sort: </p><p id="steps-count"> </p>
-						<div class="array-info-additional">
-							<div class="array-info"><p> Swaps: </p><p id="swaps-count"> </p></div>
-							<div class="array-info"><p> Comparisions: </p><p id="comp-count"> </p></div>
+						<div class="horizontal-menu-item-additional">
+							<div class="horizontal-menu-item"><p> Swaps: </p><p id="swaps-count"> </p></div>
+							<div class="horizontal-menu-item"><p> Comparisions: </p><p id="comp-count"> </p></div>
 						</div>
 					</div>
 					
-					<div class="array-info">
+					<div class="horizontal-menu-item">
 						<p> Current step: </p><p id="current-step"> </p>
-						<div class="array-info-additional">
-							<div class="array-info"><p> Step type: </p><p id="current-step-type"></p> </div>
-							<div class="array-info"><p> Step value: </p><p id="current-step-indexes"></p> </div>
+						<div class="horizontal-menu-item-additional">
+							<div class="horizontal-menu-item"><p> Step type: </p><p id="current-step-type"></p> </div>
+							<div class="horizontal-menu-item"><p> Step value: </p><p id="current-step-indexes"></p> </div>
 						</div>
 					</div>
 					
-					<div class="array-info">
+					<div class="horizontal-menu-item">
 						<p> Algorithm: </p><p id="algorithm-type"> </p>
-						<div class="array-info-additional">
-							<div class="array-info"><p> Desc: </p><p id="algorithm-desc"> </p></div>
-							<div class="array-info"><p> Read more: </p><p id="algorithm-wiki-link"> </p></div>
+						<div class="horizontal-menu-item-additional">
+							<div class="horizontal-menu-item"><p> Desc: </p><p id="algorithm-desc"> </p></div>
+							<div class="horizontal-menu-item"><p> Read more: </p><p id="algorithm-wiki-link"> </p></div>
 						</div>
 					</div>
 					
@@ -52,66 +52,55 @@
 			</div>
 			
 			<div class="sidebar">
-				<div class="dropdown">
-					<div class="dropdown-button" id="create-button">
-						Create Array
+				<div class="vertical-menu">
+
+					<div class="vertical-menu-items-container" id="create-button">
+						<p id="array-creation"> Create Array </p>
 						
-						<div class="dropdown-content-hidden">
+						<div class="vertical-menu-hidden first">
 						
-							<div class="dropdown-button" id="random-button">
+							<div class="vertical-menu-item vertical-menu-button" id="random-button">
 								<p> Random </p>
-								<div class="dropdown-content-hidden">
-									<div class="dropdown-content-hidden" >
-											<p id="slider-max-info"> Max value: </p> <input type="range" min="5" max="100" value="50" class="slider" id="array-slider-max-value" oninput="sliderOnInputArrayMax()">
-									</div>
-									<div class="dropdown-content-hidden">
-											<p id="slider-count-info"> Count: </p> <input type="range" min="3" max="250" value="50" class="slider" id="array-slider-element-count" oninput="sliderOnInputArrayCount()">
-									</div>
-									<div class="dropdown-button create-array-button" id="create-button-random" onclick="createArrayRandom()">Create</div>
-								</div>
+			
 							</div>
 							
-							<div class="dropdown-button" id="manual-button">
+							<div class="vertical-menu-item vertical-menu-button" id="manual-button">
 								<p> Manual </p>
-								<div class="dropdown-content-hidden">
-									<div class="dropdown-content-hidden">
-										<input type="text" id="manual-array-input"></input>
-									</div>
-									<div class="dropdown-button create-array-button" id="create-button-manual" onclick="createArrayManual()">Create</div>
-								</div>
+						
 							</div>
 							
 						</div>
 						
 					</div>
 					
-					<div class="dropdown-button" id="create-button">
+					<div class="vertical-menu-items-container" id="create-button">
 						<p id="algorithm-pick"> Choose algorithm </p>
-						<div class="dropdown-content-hidden">
+
+						<div class="vertical-menu-hidden">
 						
-							<div class="dropdown-button" id="pick-bubble" onclick="pickAlgorithm( SortingAlgorithms.BUBBLE )">
+							<div class="vertical-menu-item vertical-menu-button" id="pick-bubble" onclick="pickAlgorithm( SortingAlgorithms.BUBBLE )">
 								Bubble Sort
 							</div>
 							
-							<div class="dropdown-button" id="pick-select"  onclick="pickAlgorithm( SortingAlgorithms.SELECT )">
+							<div class="vertical-menu-item vertical-menu-button" id="pick-select"  onclick="pickAlgorithm( SortingAlgorithms.SELECT )">
 								Select Sort
 							</div>
 							
-							<div class="dropdown-button" id="pick-insert"  onclick="pickAlgorithm( SortingAlgorithms.INSERT )">
+							<div class="vertical-menu-item vertical-menu-button" id="pick-insert"  onclick="pickAlgorithm( SortingAlgorithms.INSERT )">
 								Insert Sort
 							</div>
 							
-							<div class="dropdown-button" id="pick-merge"  onclick="pickAlgorithm( SortingAlgorithms.MERGE )">
+							<div class="vertical-menu-item vertical-menu-button" id="pick-merge"  onclick="pickAlgorithm( SortingAlgorithms.MERGE )">
 								Merge Sort
 							</div>
 							
-							<div class="dropdown-button" id="pick-quick"  onclick="pickAlgorithm( SortingAlgorithms.QUICK )">
+							<div class="vertical-menu-item vertical-menu-button" id="pick-quick"  onclick="pickAlgorithm( SortingAlgorithms.QUICK )">
 								Quick Sort
 							</div>
 							
 						</div>
-						
 					</div>
+
 				</div>
 				
 			</div>
@@ -168,6 +157,30 @@
 				<p> Array Sort Visualization </p>
 			</div>
 			
+		</div>
+
+		<div class="modal array-creation-menu" id="random-array-creation-menu">
+			<div class="modal-part" >
+				<p id="slider slider-max-info"> Max value: </p> <input type="range" min="5" max="100" value="50" class="slider" id="array-slider-max-value" oninput="sliderOnInputArrayMax()">
+				<p id="slider slider-count-info"> Count: </p> <input type="range" min="3" max="250" value="50" class="slider" id="array-slider-element-count" oninput="sliderOnInputArrayCount()">
+			</div>
+
+			<div class="modal-menu">
+				<div class="modal-menu-button create-array-button" id="create-button-random" onclick=createArrayRandom()>Create</div>
+				<div class="modal-menu-button cancel-button" onclick=hideModal()>Create</div>
+			</div>
+			
+		</div>
+
+		<div class="modal" id=" manual-array-creation-menu">
+			<div class="modal-part">
+				<input type="text" id="manual-array-input"></input>
+			</div>
+
+			<div class="modal-menu">
+				<div class="modal-menu-button create-array-button" id="create-button-manual" onclick=createArrayManual()>Create</div>
+				<div class="modal-menu-button cancel-button" onclick=hideModal()>Create</div>
+			</div>
 		</div>
 		
 		<script src="scripts/array.js"></script>
