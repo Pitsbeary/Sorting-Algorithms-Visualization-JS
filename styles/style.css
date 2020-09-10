@@ -90,14 +90,17 @@ a:hover
 	
 	position: relative;
 
-	min-width: 20%;
+	width: 20%;
 	height: 100%;
 
 	background: var(--misc-color-3);
 	cursor: pointer;
 }
 
-.horizontal-menu-item
+.horizontal-menu-item .horizontal-menu-item
+{
+	width: 100%;
+}
 
 .horizontal-menu-item-additional
 {	
@@ -108,7 +111,7 @@ a:hover
 
 	position: absolute;
 	
-	min-width: 125%;
+	min-width: 100%;
 
 	margin-left: none;
 

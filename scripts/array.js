@@ -70,7 +70,7 @@ function bringUp( element )
 
 function bringDown( element )
 {
-	element.style.zIndex = 10;
+	element.style.zIndex = 15;
 }
 
 window.onresize = onWindowResize;
