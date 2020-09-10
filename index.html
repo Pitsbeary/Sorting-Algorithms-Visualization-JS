@@ -14,7 +14,7 @@
 			<div class="top">
 				<div class="horizontal-menu" >
 				
-					<div class="horizontal-menu-item">
+					<div class="horizontal-menu-item" onmouseover="bringUp( this )" onmouseout="bringDown( this )">
 						<p> Elements: </p><p id="elements-count"> </p>
 						<div class="horizontal-menu-item-additional first">
 							<div class="horizontal-menu-item"><p> Max: </p><p id="array-max"> </p></div>
@@ -23,7 +23,7 @@
 						</div>
 					</div>
 					
-					<div class="horizontal-menu-item">
+					<div class="horizontal-menu-item" onmouseover="bringUp( this )" onmouseout="bringDown( this )">
 						<p> Steps to sort: </p><p id="steps-count"> </p>
 						<div class="horizontal-menu-item-additional">
 							<div class="horizontal-menu-item"><p> Swaps: </p><p id="swaps-count"> </p></div>
@@ -31,7 +31,7 @@
 						</div>
 					</div>
 					
-					<div class="horizontal-menu-item">
+					<div class="horizontal-menu-item" onmouseover="bringUp( this )" onmouseout="bringDown( this )">
 						<p> Current step: </p><p id="current-step"> </p>
 						<div class="horizontal-menu-item-additional">
 							<div class="horizontal-menu-item"><p> Step type: </p><p id="current-step-type"></p> </div>
@@ -39,7 +39,7 @@
 						</div>
 					</div>
 					
-					<div class="horizontal-menu-item">
+					<div class="horizontal-menu-item" onmouseover="bringUp( this )" onmouseout="bringDown( this )">
 						<p> Algorithm: </p><p id="algorithm-type"> </p>
 						<div class="horizontal-menu-item-additional">
 							<div class="horizontal-menu-item"><p> Desc: </p><p id="algorithm-desc"> </p></div>
@@ -57,7 +57,7 @@
 					<div class="vertical-menu-items-container" id="create-button">
 						<p id="array-creation"> Create Array </p>
 						
-						<div class="vertical-menu-hidden first">
+						<div class="vertical-menu-hidden first" onmouseover="bringUp( this )" onmouseout="bringDown( this )">
 						
 							<div class="vertical-menu-item vertical-menu-button" id="random-button">
 								<p> Random </p>
@@ -76,7 +76,7 @@
 					<div class="vertical-menu-items-container" id="create-button">
 						<p id="algorithm-pick"> Choose algorithm </p>
 
-						<div class="vertical-menu-hidden">
+						<div class="vertical-menu-hidden" onmouseover="bringUp( this )" onmouseout="bringDown( this )">
 						
 							<div class="vertical-menu-item vertical-menu-button" id="pick-bubble" onclick="pickAlgorithm( SortingAlgorithms.BUBBLE )">
 								Bubble Sort

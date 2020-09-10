@@ -63,6 +63,16 @@ function onWindowResize()
 	}
 }
 
+function bringUp( element )
+{
+	element.style.zIndex = 100;
+}
+
+function bringDown( element )
+{
+	element.style.zIndex = 10;
+}
+
 window.onresize = onWindowResize;
 
 function sliderOnInputArrayMax()
