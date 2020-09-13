@@ -73,6 +73,18 @@ function bringDown( element )
 	element.style.zIndex = 15;
 }
 
+function showModal( modalId )
+{
+	let modal = document.getElementById( modal );
+	modal.style.top = '50%';
+}
+
+function hideModal( modalId )
+{
+	let modal = document.getElementById( modal );
+	modal.style.top = '-200%';
+}
+
 window.onresize = onWindowResize;
 
 function sliderOnInputArrayMax()

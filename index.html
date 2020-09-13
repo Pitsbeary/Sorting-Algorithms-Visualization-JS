@@ -59,12 +59,12 @@
 						
 						<div class="vertical-menu-hidden first" onmouseover="bringUp( this )" onmouseout="bringDown( this )">
 						
-							<div class="vertical-menu-item vertical-menu-button" id="random-button">
+							<div class="vertical-menu-item vertical-menu-button" id="random-button" onclick="showModal( 'random-array-creation-menu' )">
 								<p> Random </p>
 			
 							</div>
 							
-							<div class="vertical-menu-item vertical-menu-button" id="manual-button">
+							<div class="vertical-menu-item vertical-menu-button" id="manual-button" onclick="showModal( 'manual-array-creation-menu' )">
 								<p> Manual </p>
 						
 							</div>
@@ -156,33 +156,33 @@
 			<div class="footer">
 				<p> Array Sort Visualization </p>
 			</div>
+
+			<div class="modal array-creation-menu" id="random-array-creation-menu">
+				<div class="modal-part" >
+					<p id="slider slider-max-info"> Max value: </p> <input type="range" min="5" max="100" value="50" class="slider" id="array-slider-max-value" oninput="sliderOnInputArrayMax()">
+					<p id="slider slider-count-info"> Count: </p> <input type="range" min="3" max="250" value="50" class="slider" id="array-slider-element-count" oninput="sliderOnInputArrayCount()">
+				</div>
+	
+				<div class="modal-part">
+					<div class="modal-menu-button create-array-button" id="create-button-random" onclick=createArrayRandom()>Create</div>
+					<div class="modal-menu-button cancel-button" onclick=hideModal()>Cancel</div>
+				</div>
+				
+			</div>
+	
+			<div class="modal" id=" manual-array-creation-menu">
+				<div class="modal-part">
+					<input type="text" id="manual-array-input"></input>
+				</div>
+	
+				<div class="modal-part">
+					<div class="modal-menu-button create-array-button" id="create-button-manual" onclick=createArrayManual()>Create</div>
+					<div class="modal-menu-button cancel-button" onclick=hideModal()>Cancel</div>
+				</div>
+			</div>
 			
 		</div>
 
-		<div class="modal array-creation-menu" id="random-array-creation-menu">
-			<div class="modal-part" >
-				<p id="slider slider-max-info"> Max value: </p> <input type="range" min="5" max="100" value="50" class="slider" id="array-slider-max-value" oninput="sliderOnInputArrayMax()">
-				<p id="slider slider-count-info"> Count: </p> <input type="range" min="3" max="250" value="50" class="slider" id="array-slider-element-count" oninput="sliderOnInputArrayCount()">
-			</div>
-
-			<div class="modal-menu">
-				<div class="modal-menu-button create-array-button" id="create-button-random" onclick=createArrayRandom()>Create</div>
-				<div class="modal-menu-button cancel-button" onclick=hideModal()>Create</div>
-			</div>
-			
-		</div>
-
-		<div class="modal" id=" manual-array-creation-menu">
-			<div class="modal-part">
-				<input type="text" id="manual-array-input"></input>
-			</div>
-
-			<div class="modal-menu">
-				<div class="modal-menu-button create-array-button" id="create-button-manual" onclick=createArrayManual()>Create</div>
-				<div class="modal-menu-button cancel-button" onclick=hideModal()>Create</div>
-			</div>
-		</div>
-		
 		<script src="scripts/array.js"></script>
 		
 		<script>
