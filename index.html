@@ -159,25 +159,25 @@
 
 			<div class="modal array-creation-menu" id="random-array-creation-menu">
 				<div class="modal-part" >
-					<p id="slider slider-max-info"> Max value: </p> <input type="range" min="5" max="100" value="50" class="slider" id="array-slider-max-value" oninput="sliderOnInputArrayMax()">
-					<p id="slider slider-count-info"> Count: </p> <input type="range" min="3" max="250" value="50" class="slider" id="array-slider-element-count" oninput="sliderOnInputArrayCount()">
+					<p id="slider-max-info"> Max value: </p> <input type="range" min="5" max="100" value="50" class="slider" id="array-slider-max-value" oninput="sliderOnInputArrayMax()">
+					<p id="slider-count-info"> Count: </p> <input type="range" min="3" max="250" value="50" class="slider" id="array-slider-element-count" oninput="sliderOnInputArrayCount()">
 				</div>
 	
-				<div class="modal-part">
-					<div class="modal-menu-button create-array-button" id="create-button-random" onclick=createArrayRandom()>Create</div>
-					<div class="modal-menu-button cancel-button" onclick=hideModal()>Cancel</div>
+				<div class="modal-part modal-menu">
+					<div class="modal-menu-button create-array-button" id="create-button-random" onclick="onRandomArrayCreationModalConfirm()">Create</div>
+					<div class="modal-menu-button cancel-button" onclick="onRandomArrayCreationModalCancel()">Cancel</div>
 				</div>
 				
 			</div>
 	
-			<div class="modal" id=" manual-array-creation-menu">
+			<div class="modal" id="manual-array-creation-menu">
 				<div class="modal-part">
 					<input type="text" id="manual-array-input"></input>
 				</div>
 	
-				<div class="modal-part">
-					<div class="modal-menu-button create-array-button" id="create-button-manual" onclick=createArrayManual()>Create</div>
-					<div class="modal-menu-button cancel-button" onclick=hideModal()>Cancel</div>
+				<div class="modal-part modal-menu">
+					<div class="modal-menu-button create-array-button" id="create-button-manual" onclick="onManualArrayCreationModalConfirm()">Create</div>
+					<div class="modal-menu-button cancel-button" onclick="onRandomArrayCreationModalCancel()">Cancel</div>
 				</div>
 			</div>
 			

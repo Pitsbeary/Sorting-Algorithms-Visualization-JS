@@ -49,7 +49,9 @@ let playbackSpeed = 500;
 
 let arrayAvg = 0;
 
-let algorithm = SortingAlgorithms.NONE
+let algorithm = SortingAlgorithms.NONE;
+
+let shownModalId = null;
 
 // #endregion
 
@@ -73,16 +75,52 @@ function bringDown( element )
 	element.style.zIndex = 15;
 }
 
+function onManualArrayCreationModalConfirm()
+{
+	hideModal( 'manual-array-creation-menu' );
+	createArrayManual();
+}
+
+function onManualArrayCreationModalCancel()
+{
+	hideModal( 'manual-array-creation-menu' );
+}
+
+function onRandomArrayCreationModalConfirm()
+{
+	hideModal( 'random-array-creation-menu' );
+	createArrayRandom();
+}
+
+function onRandomArrayCreationModalCancel()
+{
+	hideModal( 'random-array-creation-menu' );
+}
+
 function showModal( modalId )
 {
-	let modal = document.getElementById( modal );
+	if( shownModalId )
+	{
+		hideModal( shownModalId );
+	}
+
+	let modal = getModal( modalId );
 	modal.style.top = '50%';
+
+	shownModalId = modalId;
 }
 
 function hideModal( modalId )
 {
-	let modal = document.getElementById( modal );
+	let modal = getModal( modalId );
 	modal.style.top = '-200%';
+
+	shownModalId = null;
+}
+
+function getModal( modalId )
+{
+	return document.getElementById( modalId );
 }
 
 window.onresize = onWindowResize;
@@ -136,7 +174,6 @@ function createLink( linkText )
 	return link;
 }
 
-
 // #endregion
 
 // #region initialization
@@ -144,7 +181,7 @@ function createLink( linkText )
 function init()
 {
 	let slider = document.getElementById( "array-slider-max-value" );
-	displaySliderValue( "slider-max-info", "Max value:", slider.value );
+	displaySliderValue( "slider-max-info", "Max value: ", slider.value );
 	
 	slider = document.getElementById( "array-slider-element-count" );
 	displaySliderValue( "slider-count-info", "Count: ", slider.value );
@@ -157,6 +194,11 @@ function init()
 // #endregion
 
 // #region display
+
+function displaySliderValue( pid, desc, value )
+{
+	document.getElementById( pid ).innerHTML = desc + " " + value;
+}
 
 function displayInfo()
 {
@@ -202,8 +244,6 @@ function displaySortingInfo()
 	document.getElementById("swaps-count").innerHTML = countSteps( sortingSteps, SortingSteps.SWAP );
 	document.getElementById("comp-count").innerHTML = countSteps( sortingSteps, SortingSteps.COMPARE );
 
-	
-	
 	document.getElementById("current-step").innerHTML = currentStepIndex + 1;
 	document.getElementById("current-step-type").innerHTML = sortingSteps[ currentStepIndex ].stepType;
 	document.getElementById("current-step-indexes").innerHTML = sortingSteps[ currentStepIndex ].indexA + "[" + currentArray[ sortingSteps[ currentStepIndex ].indexA ] + "] with " + sortingSteps[ currentStepIndex ].indexB  + "[" + currentArray[ sortingSteps[ currentStepIndex ].indexB ] + "]";
@@ -211,12 +251,7 @@ function displaySortingInfo()
 
 function countSteps( stepsArray, stepType )
 {
-	return stepsArray.reduce( ( a, b ) => { return a.stepType == stepType ? a + b : b }, 0 );
-}
-
-function displaySliderValue( pid, desc, value )
-{
-	document.getElementById( pid ).innerHTML = desc + " " + value;
+	return stepsArray.reduce( ( a, b ) => { return b.stepType == stepType ? a + 1 : a }, 0 );
 }
 
 // #endregion
