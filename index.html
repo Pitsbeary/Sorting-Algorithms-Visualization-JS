@@ -61,12 +61,10 @@
 						
 							<div class="vertical-menu-item vertical-menu-button" id="random-button" onclick="showModal( 'random-array-creation-menu' )">
 								<p> Random </p>
-			
 							</div>
 							
 							<div class="vertical-menu-item vertical-menu-button" id="manual-button" onclick="showModal( 'manual-array-creation-menu' )">
 								<p> Manual </p>
-						
 							</div>
 							
 						</div>
@@ -160,6 +158,9 @@
 			<div class="modal array-creation-menu" id="random-array-creation-menu">
 				<div class="modal-part" >
 					<p id="slider-max-info"> Max value: </p> <input type="range" min="5" max="100" value="50" class="slider" id="array-slider-max-value" oninput="sliderOnInputArrayMax()">
+				</div>	
+					
+				<div class="modal-part" >
 					<p id="slider-count-info"> Count: </p> <input type="range" min="3" max="250" value="50" class="slider" id="array-slider-element-count" oninput="sliderOnInputArrayCount()">
 				</div>
 	
