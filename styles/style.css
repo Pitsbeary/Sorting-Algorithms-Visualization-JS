@@ -617,6 +617,11 @@ a:hover
 	width: 100%;
 }
 
+.modal-part p
+{
+	padding: 5px;
+}
+
 .modal-part input
 {
 	width: 100%;

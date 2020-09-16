@@ -225,7 +225,7 @@ function displayArrayInfo()
 	
 	document.getElementById("array-max").innerHTML = Math.max( ...unsortedArray );
 	document.getElementById("array-min").innerHTML = Math.min( ...unsortedArray );
-	document.getElementById("array-avg").innerHTML =  unsortedArray.reduce( ( a, b ) => a + b, 0 ) / unsortedArray.length
+	document.getElementById("array-avg").innerHTML =  Math.round( ( unsortedArray.reduce( ( a, b ) => a + b, 0 ) / unsortedArray.length ) * 100 ) / 100;
 }
 
 function displayAlgorithmInfo()
