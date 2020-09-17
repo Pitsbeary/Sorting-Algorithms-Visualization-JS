@@ -77,8 +77,18 @@ function bringDown( element )
 
 function onManualArrayCreationModalConfirm()
 {
+	let textInput = document.getElementById( 'manual-array-input' ).value.split(',');
+		
+	if( !validateManualArrayInput( textInput ) )
+	{
+		manualInputInvalid();
+		return;
+	}
+
+	manualInputValid();
+	
 	hideModal( 'manual-array-creation-menu' );
-	createArrayManual();
+	createArrayFromText( textInput );
 }
 
 function onManualArrayCreationModalCancel()
@@ -424,29 +434,17 @@ function isAlgorithmSet()
 
 // #region array-creation
 
-function createArrayManual()
+function createArrayFromText( textInput )
 {
 	if( isPlaying )
 	{
 		stopPlayback();
 	}
 	
-	let textInput = document.getElementById( 'manual-array-input' ).value.split(',');
-	
-	if( validateManualArrayInput( textInput ) )
-	{
-		manualInputValid();
-		console.log( textInput ) ;
-		unsortedArray = textInput.map( Number );
-	}
-	else
-	{
-		manualInputInvalid();
-	}
-	
+	unsortedArray = textInput.map( Number );
 	currentArray = [...unsortedArray];
 	
-	if(  isAlgorithmSet() )
+	if( isAlgorithmSet() )
 	{
 		sortArray( algorithm );
 	}

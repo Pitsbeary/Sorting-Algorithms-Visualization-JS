@@ -257,14 +257,38 @@ a:hover
 	border-radius: 0; 
 }
 
-#manual-array-input.invalid
+input[type=text].invalid
 {
-	background: #BB2525;
+	background: #FF5555;
+	border: 1px solid black;
 }
 
-#manual-array-input.valid
+input[type=text].valid
 {
-	background: #25BB25;
+	background: #55FF55;
+	border: 1px solid black;
+}
+
+input[type=text]
+{
+	font-family: Quicksand-Light;
+	font-weight: bold;
+	
+	border: none;
+	padding: 5px;
+}
+
+input[type=text]:focus
+{
+	border: none;
+	outline: none;
+}
+
+.shadowed
+{
+	-webkit-box-shadow: 0 0 4px black;
+	-moz-box-shadow:  0 0 4px  black;
+  	box-shadow: 0 0 4px black;
 }
 
 #slider-max-info, #slider-count-info

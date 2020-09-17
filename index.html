@@ -47,7 +47,6 @@
 						</div>
 					</div>
 					
-					
 				</div>
 			</div>
 			
@@ -121,7 +120,7 @@
 						<p> Fast </p>
 					</div>
 					
-					<div class="array-nav">
+					<div class="array-nav shadowed">
 						
 						<div class="nav-button" id="nav-first" onclick="firstButtonOnClick()">
 							<div class="shape arrow-left"></div>
@@ -155,7 +154,7 @@
 				<p> Array Sort Visualization </p>
 			</div>
 
-			<div class="modal array-creation-menu" id="random-array-creation-menu">
+			<div class="modal shadowed array-creation-menu" id="random-array-creation-menu">
 				<div class="modal-part" >
 					<p id="slider-max-info"> Max value: </p> <input type="range" min="5" max="100" value="50" class="slider" id="array-slider-max-value" oninput="sliderOnInputArrayMax()">
 				</div>	
@@ -165,20 +164,20 @@
 				</div>
 	
 				<div class="modal-part modal-menu">
-					<div class="modal-menu-button create-array-button" id="create-button-random" onclick="onRandomArrayCreationModalConfirm()">Create</div>
-					<div class="modal-menu-button cancel-button" onclick="onRandomArrayCreationModalCancel()">Cancel</div>
+					<div class="modal-menu-button shadowed create-array-button" id="create-button-random" onclick="onRandomArrayCreationModalConfirm()">Create</div>
+					<div class="modal-menu-button shadowed cancel-button" onclick="onRandomArrayCreationModalCancel()">Cancel</div>
 				</div>
 				
 			</div>
 	
-			<div class="modal" id="manual-array-creation-menu">
+			<div class="modal shadowed array-creation-menu" id="manual-array-creation-menu">
 				<div class="modal-part">
-					<input type="text" id="manual-array-input"></input>
+					<input type="text" id="manual-array-input" class="shadowed"></input>
 				</div>
 	
 				<div class="modal-part modal-menu">
-					<div class="modal-menu-button create-array-button" id="create-button-manual" onclick="onManualArrayCreationModalConfirm()">Create</div>
-					<div class="modal-menu-button cancel-button" onclick="onRandomArrayCreationModalCancel()">Cancel</div>
+					<div class="modal-menu-button shadowed create-array-button" id="create-button-manual" onclick="onManualArrayCreationModalConfirm()">Create</div>
+					<div class="modal-menu-button shadowed cancel-button" onclick="onManualArrayCreationModalCancel()">Cancel</div>
 				</div>
 			</div>
 			
